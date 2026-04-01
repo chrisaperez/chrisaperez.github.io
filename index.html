@@ -5,54 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christopher Alexander Perez</title>
     <style>
+        :root {
+            --eva-orange: #ff9900;
+            --eva-red: #cc0000;
+            --eva-green: #39ff14;
+            --eva-bg: #050505;
+            --text-main: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
         body {
-            background-color: #050505;
-            color: #f0f0f0;
-            /* Changing to Times New Roman to match the Evangelion English typography */
+            background-color: var(--eva-bg);
+            color: var(--text-main);
             font-family: "Times New Roman", Times, serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
             text-transform: uppercase;
+            /* Allows for scrolling to trigger the animation */
+            min-height: 200vh; 
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
         }
-        .container {
-            max-width: 600px;
-            padding: 2rem 2rem 2rem 3rem;
-            border-left: 4px solid;
-            border-image: linear-gradient(to bottom, #ff9900, #cc0000) 1;
-        }
-        /* The CSS trick to stretch the font vertically */
+
+        /* * EVANGELION TYPOGRAPHY PRESETS 
+         */
         .eva-heading {
-            display: block;
+            display: inline-block;
             transform: scaleY(1.4); 
             transform-origin: left bottom;
             letter-spacing: 0.1em;
         }
-        h1 {
+        
+        .eva-text {
+            display: inline-block;
+            transform: scaleY(1.1);
+            transform-origin: left top;
+            letter-spacing: 0.02em;
+            text-transform: none; 
+            line-height: 1.6;
+        }
+
+        .sys-text {
+            font-family: monospace;
+            color: var(--eva-orange);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* * TOP LEFT HEADER (Fades in on scroll)
+         */
+        #top-header {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            pointer-events: none;
+            border-left: 3px solid var(--eva-red);
+            padding-left: 1rem;
+        }
+        #top-header h1 {
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--text-main);
+        }
+        #top-header .sys-text {
+            color: var(--eva-green);
+        }
+
+        /* * LANDING PAGE CONTAINER (Fades out on scroll)
+         */
+        #landing-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 600px;
+            padding: 2rem 2rem 2rem 3rem;
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom, var(--eva-orange), var(--eva-red)) 1;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 50;
+        }
+        #landing-container h1 {
             font-size: 2.2rem;
             margin: 0 0 1.5rem 0;
             font-weight: bold;
         }
-        h2 {
+        #landing-container h2 {
             font-size: 1.1rem;
             font-weight: normal;
-            color: #aaa;
+            color: var(--text-dim);
             margin: 0 0 2rem 0;
             letter-spacing: 0.15em;
         }
-        p {
+        #landing-container p {
             font-size: 1.05rem;
-            line-height: 1.6;
-            text-transform: none; 
             color: #ccc;
             margin-bottom: 3rem;
-            /* A much lighter stretch for readability on standard text */
-            display: block;
-            transform: scaleY(1.1);
-            transform-origin: left top;
-            letter-spacing: 0.02em;
         }
         a.contact-link {
             display: inline-block;
@@ -60,14 +112,12 @@
             text-decoration: none;
             font-weight: bold;
             letter-spacing: 0.15em;
-            transform: scaleY(1.2);
-            transform-origin: left bottom;
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
         a.contact-link:hover {
-            color: #ff9900;
-            border-bottom: 1px solid #ff9900;
+            color: var(--eva-orange);
+            border-bottom: 1px solid var(--eva-orange);
         }
         .footer-note {
             margin-top: 5rem;
@@ -75,24 +125,324 @@
             color: #555;
             letter-spacing: 0.4em;
             font-weight: bold;
+        }
+
+        /* * SCROLL INDICATOR 
+         */
+        #scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            transition: opacity 0.4s ease;
+            z-index: 50;
+        }
+        .scroll-line {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--eva-orange), transparent);
+            margin: 0.5rem auto 0;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.3; height: 20px; }
+            50% { opacity: 1; height: 40px; }
+            100% { opacity: 0.3; height: 20px; }
+        }
+
+        /* * MAIN CONTENT SECTION (Fades in on scroll)
+         */
+        #main-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+            width: 80%;
+            max-width: 1000px;
+            height: 70vh;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 40;
+            border: 1px solid #333;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(0, 0, 0, 0),
+                rgba(0, 0, 0, 0) 10px,
+                rgba(20, 20, 20, 0.5) 10px,
+                rgba(20, 20, 20, 0.5) 20px
+            );
+        }
+
+        /* SCROLLED STATE CLASSSES */
+        body.scrolled #landing-container {
+            opacity: 0;
+            transform: translate(-50%, -60%);
+            pointer-events: none;
+        }
+        body.scrolled #top-header {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        body.scrolled #scroll-indicator {
+            opacity: 0;
+            pointer-events: none;
+        }
+        body.scrolled #main-content {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+        }
+
+        /* * TABS INTERFACE (Left indexed boxes)
+         */
+        .sidebar {
+            width: 30%;
+            border-right: 2px solid var(--eva-red);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 0;
+            background-color: #0a0a0a;
+            position: relative;
+        }
+        /* Hazard stripe decoration */
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 10px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--eva-orange),
+                var(--eva-orange) 10px,
+                #000 10px,
+                #000 20px
+            );
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            text-align: left;
+            padding: 1.5rem 2rem;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(204, 0, 0, 0.1);
+        }
+        .tab-btn.active {
+            color: var(--eva-orange);
+            font-weight: bold;
+            background: rgba(255, 153, 0, 0.05);
+            border-left: 4px solid var(--eva-orange);
+        }
+        .tab-btn::after {
+            content: '◄';
+            position: absolute;
+            right: 1rem;
+            opacity: 0;
+            color: var(--eva-orange);
+            transition: opacity 0.2s;
+        }
+        .tab-btn.active::after {
+            opacity: 1;
+        }
+
+        .content-area {
+            width: 70%;
+            padding: 3rem;
+            position: relative;
+            background-color: rgba(5, 5, 5, 0.95);
+            overflow-y: auto;
+        }
+        
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .tab-pane.active {
             display: block;
-            transform: scaleY(1.3);
-            transform-origin: left bottom;
+        }
+        
+        .tab-pane h3 {
+            font-size: 1.8rem;
+            color: var(--eva-red);
+            margin-top: 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .content-block {
+            margin-bottom: 2rem;
+        }
+        .content-block h4 {
+            color: var(--text-main);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .content-block p {
+            color: #ccc;
+            margin: 0;
+            font-size: 1.05rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Custom Scrollbar for the content area */
+        .content-area::-webkit-scrollbar {
+            width: 6px;
+        }
+        .content-area::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        .content-area::-webkit-scrollbar-thumb {
+            background: var(--eva-red); 
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Christopher Alexander Perez</h1>
-        <h2>Stanford University '27</h2>
+
+    <header id="top-header">
+        <div class="sys-text">SYNC RATIO: 100% // STATUS: ACTIVE</div>
+        <h1 class="eva-heading">Christopher Alexander Perez</h1>
+    </header>
+
+    <div id="landing-container">
+        <h1 class="eva-heading">Christopher Alexander Perez</h1>
+        <h2 class="eva-heading">Stanford University '27</h2>
         
-        <p>
+        <p class="eva-text">
             I am a student at Stanford University majoring in Computer Science and Biology. My current work focuses on deep learning architectures, training generative models, and implementing fine-tuning techniques. I also work with and build biocomputational tools for the Weissman Lab at the Stem Cell Institute at Stanford's School of Medicine.
         </p>
 
-        <a href="mailto:chrisp26@stanford.edu" class="contact-link">CONTACT: CHRISP26@STANFORD.EDU</a>
+        <a href="mailto:chrisp26@stanford.edu" class="contact-link eva-heading">CONTACT: CHRISP26@STANFORD.EDU</a>
         
-        <div class="footer-note">A HUMAN WORK</div>
+        <div class="footer-note eva-heading">A HUMAN WORK</div>
     </div>
+
+    <div id="scroll-indicator">
+        <div class="sys-text">SCROLL TO INITIATE</div>
+        <div class="scroll-line"></div>
+    </div>
+
+    <section id="main-content">
+        <div class="sidebar">
+            <button class="tab-btn active eva-heading" onclick="openTab('edu')">Education</button>
+            <button class="tab-btn eva-heading" onclick="openTab('research')">Research</button>
+            <button class="tab-btn eva-heading" onclick="openTab('projects')">Personal Project</button>
+            <button class="tab-btn eva-heading" onclick="openTab('courses')">Coursework</button>
+            <button class="tab-btn eva-heading" onclick="openTab('hobbies')">Hobbies</button>
+        </div>
+
+        <div class="content-area">
+            <div id="edu" class="tab-pane active">
+                <div class="sys-text">DATA FILE: 01 // EDUCATION</div>
+                <h3 class="eva-heading">Academic Profile</h3>
+                
+                <div class="content-block">
+                    <h4 class="eva-heading">Stanford University</h4>
+                    <p class="eva-text">Class of 2027<br>Majoring in Computer Science and Biology<br>Gates Scholarship Recipient</p>
+                </div>
+            </div>
+
+            <div id="research" class="tab-pane">
+                <div class="sys-text">DATA FILE: 02 // RESEARCH</div>
+                <h3 class="eva-heading">Clinical & Biological Computations</h3>
+                
+                <div class="content-block">
+                    <h4 class="eva-heading">Weissman Lab</h4>
+                    <p class="eva-text">Stem Cell Institute, Stanford School of Medicine.<br>Focusing on the intersection of biological efficiency and computational models, building biocomputational tools to analyze complex datasets.</p>
+                </div>
+            </div>
+
+            <div id="projects" class="tab-pane">
+                <div class="sys-text">DATA FILE: 03 // PROJECTS</div>
+                <h3 class="eva-heading">Generative Architecture</h3>
+                
+                <div class="content-block">
+                    <h4 class="eva-heading">GPT-2 Small Implementation</h4>
+                    <p class="eva-text">Stripping away standard abstraction layers to build the GPT-2 Small architecture completely from scratch. Currently integrating Low-Rank Adaptation (LoRA) mechanisms to optimize fine-tuning processes.</p>
+                </div>
+                <div class="content-block">
+                    <h4 class="eva-heading">Frontend Engineering</h4>
+                    <p class="eva-text">Developing personal landing environments and stylized UI/UX interfaces utilizing raw HTML/CSS and JavaScript.</p>
+                </div>
+            </div>
+
+            <div id="courses" class="tab-pane">
+                <div class="sys-text">DATA FILE: 04 // COURSEWORK</div>
+                <h3 class="eva-heading">Completed Directives</h3>
+                
+                <div class="content-block">
+                    <p class="eva-text">
+                        • Core Computer Science Curricula<br>
+                        • Deep Learning & Generative Models<br>
+                        • Cellular & Molecular Biology<br>
+                        • Computational Biology Constructs
+                    </p>
+                </div>
+            </div>
+
+            <div id="hobbies" class="tab-pane">
+                <div class="sys-text">DATA FILE: 05 // HOBBIES</div>
+                <h3 class="eva-heading">Extracurricular Directives</h3>
+                
+                <div class="content-block">
+                    <h4 class="eva-heading">Culinary Logistics</h4>
+                    <p class="eva-text">Specializing in large-scale meal planning and traditional recipe preparation for groups of up to 70 people (Mole Negro, Birria, and specialized breads).</p>
+                </div>
+                <div class="content-block">
+                    <h4 class="eva-heading">Heritage Menswear & Denim</h4>
+                    <p class="eva-text">Evaluating the construction, authentic manufacturing techniques, and market value of Japanese denim and heritage garments.</p>
+                </div>
+                <div class="content-block">
+                    <h4 class="eva-heading">Specialty Tea & Spirits</h4>
+                    <p class="eva-text">Maintaining curated collections and utilizing specialized equipment for Chinese and Japanese teas, alongside specific varieties of bourbon, mezcal, and tequila.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll listener to trigger animations
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            // When user scrolls down 50 pixels, trigger the class
+            if (scrollPos > 50) {
+                document.body.classList.add('scrolled');
+            } else {
+                document.body.classList.remove('scrolled');
+            }
+        });
+
+        // Tab switching logic
+        function openTab(tabId) {
+            // Hide all panes
+            const panes = document.querySelectorAll('.tab-pane');
+            panes.forEach(pane => pane.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected pane and highlight button
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
