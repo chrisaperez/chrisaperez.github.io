@@ -225,6 +225,7 @@
         .tab-btn {
             background: none;
             border: none;
+            border-left: 4px solid transparent; /* Prevents layout shifting */
             color: var(--text-dim);
             text-align: left;
             padding: 1.5rem 2rem;
@@ -235,16 +236,22 @@
             position: relative;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
         }
         .tab-btn:hover {
-            color: var(--text-main);
             background: rgba(204, 0, 0, 0.1);
         }
         .tab-btn.active {
-            color: var(--eva-orange);
-            font-weight: bold;
             background: rgba(255, 153, 0, 0.05);
             border-left: 4px solid var(--eva-orange);
+        }
+        .tab-btn span {
+            color: inherit;
+        }
+        .tab-btn.active span {
+            color: var(--eva-orange);
+            font-weight: bold;
         }
         .tab-btn::after {
             content: '◄';
@@ -341,11 +348,12 @@
 
     <section id="main-content">
         <div class="sidebar">
-            <button class="tab-btn active eva-heading" onclick="openTab('edu')">Education</button>
-            <button class="tab-btn eva-heading" onclick="openTab('research')">Research</button>
-            <button class="tab-btn eva-heading" onclick="openTab('projects')">Personal Projects</button>
-            <button class="tab-btn eva-heading" onclick="openTab('courses')">Coursework</button>
-            <button class="tab-btn eva-heading" onclick="openTab('hobbies')">Hobbies</button>
+            <button class="tab-btn active" onclick="openTab('edu')"><span class="eva-heading">Education</span></button>
+            <button class="tab-btn" onclick="openTab('research')"><span class="eva-heading">Research</span></button>
+            <button class="tab-btn" onclick="openTab('projects')"><span class="eva-heading">Personal Projects</span></button>
+            <button class="tab-btn" onclick="openTab('courses')"><span class="eva-heading">Coursework</span></button>
+            <button class="tab-btn" onclick="openTab('hobbies')"><span class="eva-heading">Hobbies</span></button>
+            <button class="tab-btn" onclick="openTab('inspiration')"><span class="eva-heading">Inspiration</span></button>
         </div>
 
         <div class="content-area">
@@ -361,7 +369,7 @@
 
             <div id="research" class="tab-pane">
                 <div class="sys-text">DATA FILE: 02 // RESEARCH</div>
-                <h3 class="eva-heading">Clinic & Computation</h3>
+                <h3 class="eva-heading">Clinical Computation</h3>
                 
                 <div class="content-block">
                     <h4 class="eva-heading">Weissman Lab</h4>
@@ -400,7 +408,11 @@
                         • Design and Analysis of Algorithms (CS 161)<br>
                         • Operating Systems Principles (CS 111)<br>
                         • Computer Organization and Systems (CS 107)<br>
-                        • Mathematical Foundations of Computing (CS 103)
+                        • Mathematical Foundations of Computing (CS 103)<br>
+                        • Machine Learning (CS 229)<br>
+                        • Natural Language Processing with Deep Learning (CS 224N)<br>
+                        • Mining Massive Data Sets (CS 246)<br>
+                        • Continuous Mathematical Methods for Machine Learning (CS 205L)
                     </p>
                 </div>
 
@@ -423,20 +435,11 @@
                         • Diff. Equations, Linear Algebra, & Fourier Methods (MATH 53)<br>
                         • Linear Algebra & Multivariable Calculus (MATH 51)<br>
                         • Information Science and Engineering (ENGR 76)<br>
+                        • Intro to Making: What is EE? (ENGR 40M) <br>
                         • Mechanics (PHYSICS 41)
                     </p>
                 </div>
 
-                <div class="content-block">
-                    <h4 class="eva-heading">Pending Directives (2025-2026)</h4>
-                    <p class="eva-text">
-                        • Machine Learning (CS 229)<br>
-                        • Natural Language Processing with Deep Learning (CS 224N)<br>
-                        • Mining Massive Data Sets (CS 246)<br>
-                        • Continuous Mathematical Methods for Machine Learning (CS 205L)<br>
-                        • Stanford in Hong Kong (Autumn 2025)
-                    </p>
-                </div>
             </div>
 
             <div id="hobbies" class="tab-pane">
@@ -456,6 +459,29 @@
                     <p class="eva-text">I spent a semester abroad in Hong Kong and during this time, I explored a great deal of Asia and gained an appreciation for many parts of the culture. One of my favorite pasttimes is drinking tea socially. My favorite type of tea is pu'er tea, but I also really enjoy oolong and hojicha. My current favorite tea is a Yunnan sourced pu'er tea I bought in Taiwan.</p>
                 </div>
             </div>
+
+            <div id="inspiration" class="tab-pane">
+                <div class="sys-text">DATA FILE: 06 // INSPIRATION</div>
+                <h3 class="eva-heading">Aesthetic Origins</h3>
+                
+                <div class="content-block">
+                    <h4 class="eva-heading">Neon Genesis Evangelion</h4>
+                    <p class="eva-text">
+                        This website's design language, typography, and color palette are directly inspired by my favorite television series of all time: <em>Neon Genesis Evangelion</em>. The interface mimics the iconic MAGI supercomputer displays and NERV terminal readouts from the show, utilizing high-contrast hazard styling, stretched serif typography, and rigid structural borders to create a distinctly technical, "human work" aesthetic.
+                    </p>
+                </div>
+
+                <div class="content-block" style="text-align: center; margin-top: 3rem; background-color: #000; padding: 1.5rem; border: 1px solid #333; position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: repeating-linear-gradient(45deg, var(--eva-orange), var(--eva-orange) 10px, #000 10px, #000 20px);"></div>
+                    
+                    <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Neon_Genesis_Evangelion_poster.jpg" alt="Neon Genesis Evangelion Poster" style="max-width: 100%; height: auto; border: 1px solid var(--eva-red); opacity: 0.9;">
+                    
+                    <div class="sys-text" style="margin-top: 1.5rem; color: var(--text-dim);">
+                        CREDIT: NEON GENESIS EVANGELION KEY VISUAL // © GAINAX / STUDIO KHARA
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
