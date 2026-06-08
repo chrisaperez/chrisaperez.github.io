@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-label="NERV terminal style homage graphic">
+<defs>
+  <radialGradient id="core" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#ff9900" stop-opacity="0.55"/>
+    <stop offset="45%" stop-color="#cc0000" stop-opacity="0.30"/>
+    <stop offset="100%" stop-color="#050505" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="haz" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ff9900"/>
+    <stop offset="100%" stop-color="#cc0000"/>
+  </linearGradient>
+  <pattern id="dots" width="7" height="7" patternUnits="userSpaceOnUse">
+    <circle cx="1.4" cy="1.4" r="1.0" fill="#ff9900" fill-opacity="0.18"/>
+  </pattern>
+  <pattern id="hazstripe" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="28" height="28" fill="#ff9900"/>
+    <rect width="14" height="28" fill="#050505"/>
+  </pattern>
+</defs>
+<rect width="600" height="760" fill="#050505"/>
+<line x1="0" y1="0" x2="0" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="40" y1="0" x2="40" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="80" y1="0" x2="80" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="120" y1="0" x2="120" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="160" y1="0" x2="160" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="200" y1="0" x2="200" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="240" y1="0" x2="240" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="280" y1="0" x2="280" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="320" y1="0" x2="320" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="360" y1="0" x2="360" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="400" y1="0" x2="400" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="440" y1="0" x2="440" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="480" y1="0" x2="480" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="520" y1="0" x2="520" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="560" y1="0" x2="560" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="600" y1="0" x2="600" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="0" x2="600" y2="0" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="40" x2="600" y2="40" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="80" x2="600" y2="80" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="120" x2="600" y2="120" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="160" x2="600" y2="160" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="200" x2="600" y2="200" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="240" x2="600" y2="240" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="280" x2="600" y2="280" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="320" x2="600" y2="320" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="360" x2="600" y2="360" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="400" x2="600" y2="400" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="440" x2="600" y2="440" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="480" x2="600" y2="480" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="520" x2="600" y2="520" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="560" x2="600" y2="560" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="600" x2="600" y2="600" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="640" x2="600" y2="640" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="680" x2="600" y2="680" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="720" x2="600" y2="720" stroke="#ffffff" stroke-opacity="0.03"/>
+<line x1="0" y1="760" x2="600" y2="760" stroke="#ffffff" stroke-opacity="0.03"/>
+<circle cx="300" cy="330" r="270" fill="url(#core)"/>
+<polygon points="300.00,30.00 559.81,180.00 559.81,480.00 300.00,630.00 40.19,480.00 40.19,180.00" fill="none" stroke="#ff9900" stroke-opacity="0.74" stroke-width="2.4"/>
+<polygon points="300.00,75.00 520.84,202.50 520.84,457.50 300.00,585.00 79.16,457.50 79.16,202.50" fill="none" stroke="#ff9900" stroke-opacity="0.65" stroke-width="1.2"/>
+<polygon points="300.00,120.00 481.87,225.00 481.87,435.00 300.00,540.00 118.13,435.00 118.13,225.00" fill="none" stroke="#ff9900" stroke-opacity="0.56" stroke-width="1.2"/>
+<polygon points="300.00,162.00 445.49,246.00 445.49,414.00 300.00,498.00 154.51,414.00 154.51,246.00" fill="none" stroke="#ff9900" stroke-opacity="0.47" stroke-width="1.2"/>
+<polygon points="300.00,202.00 410.85,266.00 410.85,394.00 300.00,458.00 189.15,394.00 189.15,266.00" fill="none" stroke="#ff9900" stroke-opacity="0.39" stroke-width="1.2"/>
+<polygon points="300.00,238.00 379.67,284.00 379.67,376.00 300.00,422.00 220.33,376.00 220.33,284.00" fill="none" stroke="#ff9900" stroke-opacity="0.30" stroke-width="1.2"/>
+<polygon points="300.00,270.00 351.96,300.00 351.96,360.00 300.00,390.00 248.04,360.00 248.04,300.00" fill="none" stroke="#ff9900" stroke-opacity="0.21" stroke-width="1.2"/>
+<polygon points="300.00,238.00 379.67,284.00 379.67,376.00 300.00,422.00 220.33,376.00 220.33,284.00" fill="url(#dots)"/>
+<polygon points="300.00,270.00 351.96,300.00 351.96,360.00 300.00,390.00 248.04,360.00 248.04,300.00" fill="#cc0000" fill-opacity="0.16" stroke="#ff9900" stroke-opacity="0.8" stroke-width="1.5"/>
+<g transform="translate(300,360) scale(1,1.28)"><text x="0" y="0" text-anchor="middle" font-family="Times New Roman, serif" font-weight="bold" font-size="92" fill="#f0f0f0" letter-spacing="6">CP</text></g>
+<path d="M 24 112 L 24 90 L 46 90" fill="none" stroke="#cc0000" stroke-width="2"/>
+<path d="M 576 112 L 576 90 L 554 90" fill="none" stroke="#cc0000" stroke-width="2"/>
+<path d="M 24 648 L 24 670 L 46 670" fill="none" stroke="#cc0000" stroke-width="2"/>
+<path d="M 576 648 L 576 670 L 554 670" fill="none" stroke="#cc0000" stroke-width="2"/>
+<rect x="0" y="0" width="600" height="14" fill="url(#hazstripe)"/>
+<text x="24" y="56" font-family="monospace" font-size="13" letter-spacing="4" fill="#39ff14">SYSTEM ONLINE</text>
+<text x="576" y="56" text-anchor="end" font-family="monospace" font-size="13" letter-spacing="4" fill="#ff9900">SIGNAL: NOMINAL</text>
+<rect x="0" y="746" width="600" height="14" fill="url(#hazstripe)"/>
+<text x="300" y="610" text-anchor="middle" font-family="Times New Roman, serif" font-weight="bold" font-size="30" fill="#f0f0f0" letter-spacing="3">GOD&#8217;S IN HIS HEAVEN.</text>
+<text x="300" y="650" text-anchor="middle" font-family="Times New Roman, serif" font-weight="bold" font-size="30" fill="#f0f0f0" letter-spacing="3">ALL&#8217;S RIGHT WITH THE WORLD.</text>
+<text x="300" y="682" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="3" fill="#777">— ROBERT BROWNING</text>
+</svg>
