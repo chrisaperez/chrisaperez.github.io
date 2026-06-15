@@ -343,6 +343,18 @@
             flex-wrap: wrap;
         }
         .entry h4 { color: var(--text-main); margin: 0; font-size: 1.18rem; }
+        .entry h4 a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid var(--eva-red);
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .entry h4 a:hover,
+        .entry h4 a:focus-visible {
+            color: var(--eva-orange);
+            border-bottom-color: var(--eva-orange);
+            outline: none;
+        }
         .entry-date {
             font-family: "Courier New", monospace;
             font-size: 0.72rem;
@@ -599,7 +611,7 @@
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading">Roulette Simulator &amp; Strategy Lab</h4>
+                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/roulette_sim" target="_blank" rel="noopener">Roulette Simulator &amp; Strategy Lab</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
                     <p class="eva-text">A self-consistent 52-slot roulette project: an interactive game (browser and terminal) paired with an honest Monte&nbsp;Carlo analysis of the classic betting systems, all driven by one shared rules engine so the game and the math always agree. Trained a Q-learning agent over ~105k episodes and benchmarked it against Martingale, Fibonacci, and D&rsquo;Alembert, demonstrating that no system beats the 3.85% house edge: each one only reshapes the variance.</p>
@@ -608,11 +620,11 @@
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading">Spotify &ldquo;Hot This Week&rdquo;</h4>
+                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/local-music-player" target="_blank" rel="noopener">Local Music Player</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
-                    <p class="eva-text">An end-to-end tool that turns a Spotify library into a neon, CD-era &ldquo;record-store&rdquo; report. After Spotify retired its recommendation and audio-feature endpoints, I built a hidden-gems engine from scratch. Every pick (underground favorites, deep cuts, buried-treasure albums) is computed from the user&rsquo;s own library with a popularity-weighted scoring function. Handles OAuth, large library pulls, and ships a credential-free build to share with friends.</p>
-                    <div class="tags"><span class="tag">Python</span><span class="tag">Spotify API</span><span class="tag">OAuth</span><span class="tag">Recommender</span></div>
+                    <p class="eva-text">A local, Spotify-like desktop music player for your own files, built with Electron. It reads tags and cover art into a unified, searchable library with playlists, a queue, and smart auto-playlists: a weekly On&nbsp;Repeat, a content-based Discover&nbsp;Mix, and Wrapped-style listening recaps. Everything is computed and stored on your machine, with no accounts and no network calls. Plays FLAC and MP3 natively, with macOS media-key and Control&nbsp;Center integration.</p>
+                    <div class="tags"><span class="tag">Electron</span><span class="tag">Node.js</span><span class="tag">JavaScript</span><span class="tag">macOS</span></div>
                 </div>
 
                 <div class="entry">
@@ -626,7 +638,7 @@
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading">Market Maker</h4>
+                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/market_maker" target="_blank" rel="noopener">Market Maker</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
                     <p class="eva-text">A lightweight book-keeping app for tracking low-volume wagers between friends, acting as a shared ledger rather than a payment system, with no money changing hands. Built as a TypeScript monorepo, containerized with Docker, and deployed to Fly.io.</p>
@@ -635,7 +647,7 @@
 
                 <div class="entry">
                     <h4 class="eva-heading">A Note on Code</h4>
-                    <p class="eva-text">Many of my projects extend in-class assignments. To support the Stanford Honor Code, I don&rsquo;t post them publicly. If you&rsquo;re interested in seeing my work, please reach out directly: <a href="mailto:chrisp26@stanford.edu" class="contact-link">chrisp26@stanford.edu</a>.</p>
+                    <p class="eva-text">The linked projects above are personal work with public source on GitHub, so click any linked title to see the code. Some of my other projects are school projects that extend in-class assignments; to support the Stanford Honor Code, I keep those private. If you&rsquo;d like to see any of the unlinked work, please reach out directly: <a href="mailto:chrisp26@stanford.edu" class="contact-link">chrisp26@stanford.edu</a>.</p>
                 </div>
             </div>
 
