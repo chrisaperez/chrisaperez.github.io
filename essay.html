@@ -6,9 +6,7 @@
     <title>Essay</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- docx-preview dependencies -->
-    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
-    <script src="https://unpkg.com/docx-preview/dist/docx-preview.min.js"></script>
+    <!-- Scripts -->
     <style>
         :root {
             --bg-color: #fdfbf7;
@@ -78,28 +76,25 @@
         }
 
         #document-container {
+            background: transparent;
+            min-height: 80vh;
+        }
+
+        /* Styles for PDF embedding */
+        .pdf-embed {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            background: #fff;
+        }
+
+        /* Markdown fallback styles */
+        #document-container > :not(.pdf-embed) {
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            min-height: 50vh;
-            overflow: hidden; /* Contains docx wrapper smoothly */
-        }
-
-        /* Customize docx-preview wrapper to match site theme perfectly */
-        .docx-wrapper {
-            background: transparent !important;
-            padding: 0 !important;
-        }
-        
-        .docx-wrapper > section.docx {
-            box-shadow: none !important;
-            margin: 0 !important;
-            padding: 4rem 3rem !important; /* Elegant spacing for the document */
-            background: transparent !important;
-        }
-
-        /* Fallback for markdown content padding */
-        #document-container > :not(.docx-wrapper) {
             padding: 4rem 3rem;
         }
 
@@ -151,34 +146,8 @@
                     
                     const container = document.getElementById('document-container');
                     
-                    if (filename.toLowerCase().endsWith('.docx')) {
-                        fetch('essays/' + filename)
-                            .then(response => response.blob())
-                            .then(blob => {
-                                container.innerHTML = '';
-                                // Using docx-preview instead of mammoth to retain fonts, indentation, and structure
-                                docx.renderAsync(blob, container, null, {
-                                    inWrapper: true,
-                                    ignoreWidth: false,
-                                    ignoreHeight: false,
-                                    ignoreFonts: false,
-                                    breakPages: true,
-                                    ignoreLastRenderedPageBreak: true,
-                                    experimental: true,
-                                    trimXmlDeclaration: true,
-                                    useBase64URL: true,
-                                    renderChanges: false,
-                                    renderHeaders: true,
-                                    renderFooters: true,
-                                    renderFootnotes: true,
-                                    renderEndnotes: true,
-                                }).then(() => {
-                                    console.log("docx rendered successfully with original formatting.");
-                                }).catch(err => {
-                                    container.innerHTML = '<div style="color: var(--accent); padding: 4rem 3rem;">Error loading document.</div>';
-                                    console.error(err);
-                                });
-                            });
+                    if (filename.toLowerCase().endsWith('.pdf')) {
+                        container.innerHTML = `<iframe src="essays/${filename}" class="pdf-embed" title="Essay PDF Document"></iframe>`;
                     } else if (filename.toLowerCase().endsWith('.md')) {
                         fetch('essays/' + filename)
                             .then(response => response.text())
