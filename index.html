@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christopher Alexander Perez</title>
-    <meta name="description" content="Christopher Alexander Perez, Stanford University '27, Computer Science & Computational Biology. Deep learning systems, generative models, and computational biology research at the Weissman Lab.">
+    <meta name="description"
+        content="Christopher Alexander Perez, Stanford University '27, Computer Science & Computational Biology. Deep learning systems, generative models, and computational biology research at the Weissman Lab.">
     <meta name="author" content="Christopher Alexander Perez">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
     <!-- Social preview -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Christopher Alexander Perez">
-    <meta property="og:description" content="Stanford '27: Computer Science & Computational Biology. ML systems and stem-cell research.">
+    <meta property="og:description"
+        content="Stanford '27: Computer Science & Computational Biology. ML systems and stem-cell research.">
     <meta name="theme-color" content="#050505">
 
     <style>
@@ -26,9 +29,13 @@
             --hairline: #1c1c1c;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             background-color: var(--eva-bg);
@@ -49,14 +56,13 @@
             pointer-events: none;
             z-index: 200;
             background:
-                repeating-linear-gradient(
-                    to bottom,
+                repeating-linear-gradient(to bottom,
                     rgba(255, 255, 255, 0.025) 0px,
                     rgba(255, 255, 255, 0.025) 1px,
                     transparent 1px,
-                    transparent 3px
-                );
+                    transparent 3px);
         }
+
         #crt-overlay::after {
             content: '';
             position: absolute;
@@ -71,12 +77,14 @@
             transform-origin: left bottom;
             letter-spacing: 0.08em;
         }
+
         .eva-text {
             display: inline-block;
             letter-spacing: 0.02em;
             text-transform: none;
             line-height: 1.65;
         }
+
         .sys-text {
             font-family: "Courier New", monospace;
             color: var(--eva-orange);
@@ -99,11 +107,13 @@
             border-left: 3px solid var(--eva-red);
             padding-left: 1rem;
         }
+
         #top-header h1 {
             font-size: 1.2rem;
             margin: 0;
             color: var(--text-main);
         }
+
         #top-header .sys-text {
             color: var(--eva-green);
             margin-bottom: 0.25rem;
@@ -123,12 +133,14 @@
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 50;
         }
+
         #landing-container h1 {
             font-size: 2.4rem;
             margin: 0 0 1.6rem 0;
             font-weight: bold;
             line-height: 1.05;
         }
+
         #landing-container h2 {
             font-size: 1.05rem;
             font-weight: normal;
@@ -136,6 +148,7 @@
             margin: 0 0 2rem 0;
             letter-spacing: 0.18em;
         }
+
         #landing-container p {
             font-size: 1.05rem;
             color: #ccc;
@@ -148,6 +161,7 @@
             gap: 0.6rem 1.6rem;
             margin-bottom: 2.5rem;
         }
+
         a.contact-link {
             display: inline-block;
             color: #ff6a1a;
@@ -158,12 +172,14 @@
             border-bottom: 1px solid transparent;
             transition: color 0.25s ease, border-color 0.25s ease;
         }
+
         a.contact-link:hover,
         a.contact-link:focus-visible {
             color: var(--eva-orange);
             border-bottom: 1px solid var(--eva-orange);
             outline: none;
         }
+
         .footer-note {
             font-size: 0.75rem;
             color: #555;
@@ -185,6 +201,7 @@
             cursor: pointer;
             color: var(--eva-orange);
         }
+
         .scroll-line {
             width: 2px;
             height: 40px;
@@ -192,10 +209,22 @@
             margin: 0.5rem auto 0;
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0% { opacity: 0.3; height: 20px; }
-            50% { opacity: 1; height: 40px; }
-            100% { opacity: 0.3; height: 20px; }
+            0% {
+                opacity: 0.3;
+                height: 20px;
+            }
+
+            50% {
+                opacity: 1;
+                height: 40px;
+            }
+
+            100% {
+                opacity: 0.3;
+                height: 20px;
+            }
         }
 
         /* MAIN CONTENT PANEL (fades in on scroll) */
@@ -214,13 +243,11 @@
             z-index: 40;
             border: 1px solid #333;
             background:
-                repeating-linear-gradient(
-                    45deg,
+                repeating-linear-gradient(45deg,
                     rgba(0, 0, 0, 0),
                     rgba(0, 0, 0, 0) 10px,
                     rgba(20, 20, 20, 0.5) 10px,
-                    rgba(20, 20, 20, 0.5) 20px
-                );
+                    rgba(20, 20, 20, 0.5) 20px);
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
         }
 
@@ -230,15 +257,18 @@
             transform: translate(-50%, -60%);
             pointer-events: none;
         }
+
         body.scrolled #top-header {
             opacity: 1;
             transform: translateY(0);
             pointer-events: auto;
         }
+
         body.scrolled #scroll-indicator {
             opacity: 0;
             pointer-events: none;
         }
+
         body.scrolled #main-content {
             opacity: 1;
             transform: translate(-50%, -50%);
@@ -256,17 +286,19 @@
             background-color: var(--eva-panel);
             position: relative;
         }
+
         .sidebar::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 10px;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--eva-orange),
-                var(--eva-orange) 10px,
-                #000 10px,
-                #000 20px
-            );
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: repeating-linear-gradient(45deg,
+                    var(--eva-orange),
+                    var(--eva-orange) 10px,
+                    #000 10px,
+                    #000 20px);
         }
 
         .tab-btn {
@@ -287,13 +319,24 @@
             align-items: center;
             gap: 0.85rem;
         }
-        .tab-btn:hover { background: rgba(204, 0, 0, 0.12); color: var(--text-main); }
-        .tab-btn:focus-visible { outline: none; background: rgba(255, 153, 0, 0.08); color: var(--text-main); }
+
+        .tab-btn:hover {
+            background: rgba(204, 0, 0, 0.12);
+            color: var(--text-main);
+        }
+
+        .tab-btn:focus-visible {
+            outline: none;
+            background: rgba(255, 153, 0, 0.08);
+            color: var(--text-main);
+        }
+
         .tab-btn.active {
             background: rgba(255, 153, 0, 0.06);
             border-left: 4px solid var(--eva-orange);
             color: var(--eva-orange);
         }
+
         .tab-idx {
             font-family: "Courier New", monospace;
             font-size: 0.68rem;
@@ -301,8 +344,15 @@
             color: #666;
             min-width: 1.4em;
         }
-        .tab-btn.active .tab-idx { color: var(--eva-red); }
-        .tab-label { font-weight: bold; }
+
+        .tab-btn.active .tab-idx {
+            color: var(--eva-red);
+        }
+
+        .tab-label {
+            font-weight: bold;
+        }
+
         .tab-btn::after {
             content: '\25C4';
             position: absolute;
@@ -311,7 +361,10 @@
             color: var(--eva-orange);
             transition: opacity 0.2s;
         }
-        .tab-btn.active::after { opacity: 1; }
+
+        .tab-btn.active::after {
+            opacity: 1;
+        }
 
         /* CONTENT AREA */
         .content-area {
@@ -322,8 +375,16 @@
             background-color: rgba(5, 5, 5, 0.95);
             overflow-y: auto;
         }
-        .tab-pane { display: none; }
-        .tab-pane.active { display: block; animation: fadeIn 0.4s ease-out forwards; }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
         .tab-pane h3 {
             font-size: 1.7rem;
             color: var(--eva-red);
@@ -333,8 +394,18 @@
         }
 
         /* ENTRIES (experience / research / projects) */
-        .entry { margin-bottom: 1.8rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--hairline); }
-        .entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .entry {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--hairline);
+        }
+
+        .entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
         .entry-head {
             display: flex;
             justify-content: space-between;
@@ -342,19 +413,27 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
-        .entry h4 { color: var(--text-main); margin: 0; font-size: 1.18rem; }
+
+        .entry h4 {
+            color: var(--text-main);
+            margin: 0;
+            font-size: 1.18rem;
+        }
+
         .entry h4 a {
             color: inherit;
             text-decoration: none;
             border-bottom: 1px solid var(--eva-red);
             transition: color 0.2s ease, border-color 0.2s ease;
         }
+
         .entry h4 a:hover,
         .entry h4 a:focus-visible {
             color: var(--eva-orange);
             border-bottom-color: var(--eva-orange);
             outline: none;
         }
+
         .entry-date {
             font-family: "Courier New", monospace;
             font-size: 0.72rem;
@@ -362,6 +441,7 @@
             color: var(--text-dim);
             white-space: nowrap;
         }
+
         .role-sub {
             color: var(--eva-orange);
             font-family: "Courier New", monospace;
@@ -370,9 +450,20 @@
             text-transform: uppercase;
             margin: 0.35rem 0 0.7rem 0;
         }
-        .entry p { color: #ccc; margin: 0; font-size: 1.0rem; }
 
-        .tags { margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .entry p {
+            color: #ccc;
+            margin: 0;
+            font-size: 1.0rem;
+        }
+
+        .tags {
+            margin-top: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
         .tag {
             display: inline-block;
             border: 1px solid #333;
@@ -385,22 +476,58 @@
         }
 
         /* simple content block (education / courses / hobbies) */
-        .content-block { margin-bottom: 1.8rem; }
-        .content-block:last-child { margin-bottom: 0; }
-        .content-block h4 { color: var(--text-main); margin: 0 0 0.5rem 0; font-size: 1.18rem; }
-        .content-block p { color: #ccc; margin: 0; font-size: 1.0rem; }
-        .course-list { columns: 1; }
-        .course-list .eva-text { line-height: 1.85; }
+        .content-block {
+            margin-bottom: 1.8rem;
+        }
+
+        .content-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-block h4 {
+            color: var(--text-main);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.18rem;
+        }
+
+        .content-block p {
+            color: #ccc;
+            margin: 0;
+            font-size: 1.0rem;
+        }
+
+        .course-list {
+            columns: 1;
+        }
+
+        .course-list .eva-text {
+            line-height: 1.85;
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(10px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Custom scrollbar */
-        .content-area::-webkit-scrollbar { width: 6px; }
-        .content-area::-webkit-scrollbar-track { background: #050505; }
-        .content-area::-webkit-scrollbar-thumb { background: var(--eva-red); }
+        .content-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .content-area::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        .content-area::-webkit-scrollbar-thumb {
+            background: var(--eva-red);
+        }
 
         /* Inspiration quote card (text-only) */
         .quote-card {
@@ -411,12 +538,17 @@
             border: 1px solid #333;
             position: relative;
         }
+
         .quote-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 5px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
             background: repeating-linear-gradient(45deg, var(--eva-orange), var(--eva-orange) 10px, #000 10px, #000 20px);
         }
+
         .quote-text {
             font-size: 1.5rem;
             color: var(--text-main);
@@ -427,13 +559,26 @@
 
         /* RESPONSIVE — stack into a usable mobile terminal */
         @media (max-width: 760px) {
-            #landing-container { padding: 1.5rem 1.25rem 1.5rem 1.75rem; }
-            #landing-container h1 { font-size: 1.8rem; }
-            #landing-container p { font-size: 0.98rem; }
-            #top-header { top: 1rem; left: 1rem; }
+            #landing-container {
+                padding: 1.5rem 1.25rem 1.5rem 1.75rem;
+            }
+
+            #landing-container h1 {
+                font-size: 1.8rem;
+            }
+
+            #landing-container p {
+                font-size: 0.98rem;
+            }
+
+            #top-header {
+                top: 1rem;
+                left: 1rem;
+            }
 
             #main-content {
-                top: 0; left: 0;
+                top: 0;
+                left: 0;
                 width: 100%;
                 max-width: none;
                 height: 100%;
@@ -441,7 +586,10 @@
                 flex-direction: column;
                 border: none;
             }
-            body.scrolled #main-content { transform: none; }
+
+            body.scrolled #main-content {
+                transform: none;
+            }
 
             .sidebar {
                 width: 100%;
@@ -453,6 +601,7 @@
                 border-bottom: 2px solid var(--eva-red);
                 -webkit-overflow-scrolling: touch;
             }
+
             .tab-btn {
                 border-left: none;
                 border-bottom: 4px solid transparent;
@@ -460,31 +609,55 @@
                 white-space: nowrap;
                 font-size: 0.92rem;
             }
-            .tab-btn.active { border-left: none; border-bottom: 4px solid var(--eva-orange); }
-            .tab-btn::after { display: none; }
 
-            .content-area { width: 100%; padding: 1.6rem 1.3rem; }
-            .tab-pane h3 { font-size: 1.4rem; }
-            .entry-date { font-size: 0.66rem; }
+            .tab-btn.active {
+                border-left: none;
+                border-bottom: 4px solid var(--eva-orange);
+            }
+
+            .tab-btn::after {
+                display: none;
+            }
+
+            .content-area {
+                width: 100%;
+                padding: 1.6rem 1.3rem;
+            }
+
+            .tab-pane h3 {
+                font-size: 1.4rem;
+            }
+
+            .entry-date {
+                font-size: 0.66rem;
+            }
         }
 
         @media (max-width: 760px) and (orientation: portrait) {
-            #main-content { height: 100vh; }
+            #main-content {
+                height: 100vh;
+            }
         }
 
         /* Accessibility: respect reduced-motion */
         @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; animation: none !important; }
-            html { scroll-behavior: auto; }
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <div id="crt-overlay" aria-hidden="true"></div>
 
     <header id="top-header">
-        <div class="sys-text">STATUS: ACTIVE</div>
         <h1 class="eva-heading">Christopher Alexander Perez</h1>
     </header>
 
@@ -493,12 +666,15 @@
         <h2 class="eva-heading">Stanford University &rsquo;27</h2>
 
         <p class="eva-text">
-            I&rsquo;m an undergraduate at Stanford studying Computer Science and Computational Biology. My work spans deep&nbsp;learning systems, building and fine-tuning generative models from the ground up, and computational biology, where I build tools for the Weissman Lab at Stanford&rsquo;s Stem Cell Institute.
+            I&rsquo;m an undergraduate at Stanford studying Computer Science and Computational Biology. My work spans
+            deep&nbsp;learning systems, building and fine-tuning generative models from the ground up, and computational
+            biology, where I build tools for the Weissman Lab at Stanford&rsquo;s Stem Cell Institute.
         </p>
 
         <div class="contact-row">
             <a href="mailto:chris_perez@stanford.edu" class="contact-link">EMAIL</a>
-            <a href="https://www.linkedin.com/in/christopher-alexander-perez-561b92217/" target="_blank" rel="noopener" class="contact-link">LINKEDIN</a>
+            <a href="https://www.linkedin.com/in/christopher-alexander-perez-561b92217/" target="_blank" rel="noopener"
+                class="contact-link">LINKEDIN</a>
             <a href="https://github.com/chrisaperez" target="_blank" rel="noopener" class="contact-link">GITHUB</a>
         </div>
 
@@ -512,12 +688,20 @@
 
     <section id="main-content" aria-label="Profile data">
         <div class="sidebar" role="tablist" aria-label="Sections">
-            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="edu" data-tab="edu"><span class="tab-idx">01</span><span class="tab-label">Education</span></button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="experience" data-tab="experience"><span class="tab-idx">02</span><span class="tab-label">Experience &amp; Research</span></button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="projects" data-tab="projects"><span class="tab-idx">03</span><span class="tab-label">Projects</span></button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="courses" data-tab="courses"><span class="tab-idx">04</span><span class="tab-label">Coursework</span></button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="hobbies" data-tab="hobbies"><span class="tab-idx">05</span><span class="tab-label">Hobbies</span></button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="inspiration" data-tab="inspiration"><span class="tab-idx">06</span><span class="tab-label">Inspiration</span></button>
+            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="edu" data-tab="edu"><span
+                    class="tab-idx">01</span><span class="tab-label">Education</span></button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="experience"
+                data-tab="experience"><span class="tab-idx">02</span><span class="tab-label">Experience &amp;
+                    Research</span></button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="projects" data-tab="projects"><span
+                    class="tab-idx">03</span><span class="tab-label">Projects</span></button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="courses" data-tab="courses"><span
+                    class="tab-idx">04</span><span class="tab-label">Coursework</span></button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="hobbies" data-tab="hobbies"><span
+                    class="tab-idx">05</span><span class="tab-label">Hobbies</span></button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="inspiration"
+                data-tab="inspiration"><span class="tab-idx">06</span><span
+                    class="tab-label">Inspiration</span></button>
         </div>
 
         <div class="content-area">
@@ -531,7 +715,8 @@
                         <span class="entry-date">CLASS OF 2027</span>
                     </div>
                     <div class="role-sub">Stanford, CA</div>
-                    <p class="eva-text">B.S. Computer Science &amp; B.S. Computational Biology &middot; GPA 3.5.<br>Gates Scholar, Cohort&nbsp;V.</p>
+                    <p class="eva-text">B.S. Computer Science &amp; B.S. Computational Biology &middot; GPA
+                        3.5.<br>Gates Scholar, Cohort&nbsp;V.</p>
                 </div>
             </div>
 
@@ -545,9 +730,16 @@
                         <span class="entry-date">JUN &ndash; SEP 2025</span>
                     </div>
                     <div class="role-sub">Stem Cell Institute &middot; Stanford School of Medicine</div>
-                    <p class="eva-text">Built computational pipelines for ATAC-seq analysis using HOMER and GREAT to investigate the role of <em>Hoxb5</em> in hematopoietic stem cell (HSC) differentiation and self-renewal. Developed data-processing and visualization code on Stanford&rsquo;s SHERLOCK cluster, and ran wet-lab CUT&amp;Tag experiments on transgenic mouse models to generate new datasets, alongside bench work like cloning, primer design, and takedowns for stem cell analysis.</p>
+                    <p class="eva-text">Built computational pipelines for ATAC-seq analysis using HOMER and GREAT to
+                        investigate the role of <em>Hoxb5</em> in hematopoietic stem cell (HSC) differentiation and
+                        self-renewal. Developed data-processing and visualization code on Stanford&rsquo;s SHERLOCK
+                        cluster, and ran wet-lab CUT&amp;Tag experiments on transgenic mouse models to generate new
+                        datasets, alongside bench work like cloning, primer design, and takedowns for stem cell
+                        analysis.</p>
                     <div class="tags">
-                        <span class="tag">Python</span><span class="tag">ATAC-seq</span><span class="tag">HOMER</span><span class="tag">GREAT</span><span class="tag">SHERLOCK</span><span class="tag">CUT&amp;Tag</span>
+                        <span class="tag">Python</span><span class="tag">ATAC-seq</span><span
+                            class="tag">HOMER</span><span class="tag">GREAT</span><span class="tag">SHERLOCK</span><span
+                            class="tag">CUT&amp;Tag</span>
                     </div>
                 </div>
 
@@ -557,9 +749,13 @@
                         <span class="entry-date">JUN &ndash; SEP 2024</span>
                     </div>
                     <div class="role-sub">Software Development Engineer Intern &middot; Seattle, WA</div>
-                    <p class="eva-text">Designed and implemented an overhauled deletion system for the remote tier of MSK (Managed Streaming for Apache Kafka) clusters, automating operator-driven recovery. Built asynchronous remote-topic deletion on AWS ECS, cutting resource usage and improving throughput across multiple storage backends.</p>
+                    <p class="eva-text">Designed and implemented an overhauled deletion system for the remote tier of
+                        MSK (Managed Streaming for Apache Kafka) clusters, automating operator-driven recovery. Built
+                        asynchronous remote-topic deletion on AWS ECS, cutting resource usage and improving throughput
+                        across multiple storage backends.</p>
                     <div class="tags">
-                        <span class="tag">Java</span><span class="tag">AWS ECS</span><span class="tag">Kafka</span><span class="tag">Docker</span><span class="tag">Postman</span><span class="tag">Mockito</span>
+                        <span class="tag">Java</span><span class="tag">AWS ECS</span><span class="tag">Kafka</span><span
+                            class="tag">Docker</span><span class="tag">Postman</span><span class="tag">Mockito</span>
                     </div>
                 </div>
 
@@ -569,7 +765,9 @@
                         <span class="entry-date">JUN &ndash; SEP 2023</span>
                     </div>
                     <div class="role-sub">Backend Technology Intern &middot; Olivette, MO</div>
-                    <p class="eva-text">Streamlined testing of incoming hardware for the bank&rsquo;s core software migration, and compiled large volumes of sensitive client data to power account-alert workflows, recognized for speed and accuracy.</p>
+                    <p class="eva-text">Streamlined testing of incoming hardware for the bank&rsquo;s core software
+                        migration, and compiled large volumes of sensitive client data to power account-alert workflows,
+                        recognized for speed and accuracy.</p>
                 </div>
             </div>
 
@@ -582,8 +780,12 @@
                         <h4 class="eva-heading">GPT-2 Small + LoRA</h4>
                         <span class="entry-date">2026</span>
                     </div>
-                    <p class="eva-text">Built GPT-2 Small from scratch, implementing multi-head self-attention and the full training loop by hand, then integrated Low-Rank Adaptation (LoRA) for parameter-efficient fine-tuning on constrained hardware. Designed custom data pipelines to stream large text corpora while minimizing GPU memory overhead.</p>
-                    <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">LoRA</span></div>
+                    <p class="eva-text">Built GPT-2 Small from scratch, implementing multi-head self-attention and the
+                        full training loop by hand, then integrated Low-Rank Adaptation (LoRA) for parameter-efficient
+                        fine-tuning on constrained hardware. Designed custom data pipelines to stream large text corpora
+                        while minimizing GPU memory overhead.</p>
+                    <div class="tags"><span class="tag">Python</span><span class="tag">PyTorch</span><span
+                            class="tag">LoRA</span></div>
                 </div>
 
                 <div class="entry">
@@ -591,8 +793,12 @@
                         <h4 class="eva-heading">AI Lecture Note Summarizer</h4>
                         <span class="entry-date">2025</span>
                     </div>
-                    <p class="eva-text">An end-to-end &ldquo;lecture-to-notes&rdquo; pipeline that turns noisy ASR transcripts into clean, readable study notes. Built regex-based heuristics to parse and clean <code>.vtt</code> / <code>.txt</code> transcripts, then applied LLMs to summarize imperfect, real-world data.</p>
-                    <div class="tags"><span class="tag">Python</span><span class="tag">NLP</span><span class="tag">LLMs</span></div>
+                    <p class="eva-text">An end-to-end &ldquo;lecture-to-notes&rdquo; pipeline that turns noisy ASR
+                        transcripts into clean, readable study notes. Built regex-based heuristics to parse and clean
+                        <code>.vtt</code> / <code>.txt</code> transcripts, then applied LLMs to summarize imperfect,
+                        real-world data.</p>
+                    <div class="tags"><span class="tag">Python</span><span class="tag">NLP</span><span
+                            class="tag">LLMs</span></div>
                 </div>
 
                 <div class="entry">
@@ -600,49 +806,81 @@
                         <h4 class="eva-heading">Probabilistic Inference for a Driverless Car</h4>
                         <span class="entry-date">2025</span>
                     </div>
-                    <p class="eva-text">Implemented an exact Bayesian inference engine that recursively refines a belief distribution over a car&rsquo;s position from noisy Gaussian sensor data and a learned transition model. Designed an object-oriented <code>Belief</code> class and a module resilient to sensor-deception (adversarial) attacks.</p>
+                    <p class="eva-text">Implemented an exact Bayesian inference engine that recursively refines a belief
+                        distribution over a car&rsquo;s position from noisy Gaussian sensor data and a learned
+                        transition model. Designed an object-oriented <code>Belief</code> class and a module resilient
+                        to sensor-deception (adversarial) attacks.</p>
                     <div class="tags"><span class="tag">Python</span><span class="tag">Bayesian Inference</span></div>
                 </div>
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/roulette_sim" target="_blank" rel="noopener">Roulette Simulator &amp; Strategy Lab</a></h4>
+                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/roulette_sim" target="_blank"
+                                rel="noopener">Roulette Simulator &amp; Strategy Lab</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
-                    <p class="eva-text">A self-consistent 52-slot roulette project: an interactive game (browser and terminal) paired with an honest Monte&nbsp;Carlo analysis of the classic betting systems, all driven by one shared rules engine so the game and the math always agree. Trained a Q-learning agent over ~105k episodes and benchmarked it against Martingale, Fibonacci, and D&rsquo;Alembert, demonstrating that no system beats the 3.85% house edge: each one only reshapes the variance.</p>
-                    <div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">Reinforcement Learning</span><span class="tag">Monte Carlo</span></div>
+                    <p class="eva-text">A self-consistent 52-slot roulette project: an interactive game (browser and
+                        terminal) paired with an honest Monte&nbsp;Carlo analysis of the classic betting systems, all
+                        driven by one shared rules engine so the game and the math always agree. Trained a Q-learning
+                        agent over ~105k episodes and benchmarked it against Martingale, Fibonacci, and
+                        D&rsquo;Alembert, demonstrating that no system beats the 3.85% house edge: each one only
+                        reshapes the variance.</p>
+                    <div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span
+                            class="tag">Reinforcement Learning</span><span class="tag">Monte Carlo</span></div>
                 </div>
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/local-music-player" target="_blank" rel="noopener">Local Music Player</a></h4>
+                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/local-music-player"
+                                target="_blank" rel="noopener">Local Music Player</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
-                    <p class="eva-text">A local, Spotify-like desktop music player for your own files, built with Electron. It reads tags and cover art into a unified, searchable library with playlists, a queue, and smart auto-playlists: a weekly On&nbsp;Repeat, a content-based Discover&nbsp;Mix, and Wrapped-style listening recaps. Everything is computed and stored on your machine, with no accounts and no network calls. Plays FLAC and MP3 natively, with macOS media-key and Control&nbsp;Center integration.</p>
-                    <div class="tags"><span class="tag">Electron</span><span class="tag">Node.js</span><span class="tag">JavaScript</span><span class="tag">macOS</span></div>
+                    <p class="eva-text">A local, Spotify-like desktop music player for your own files, built with
+                        Electron. It reads tags and cover art into a unified, searchable library with playlists, a
+                        queue, and smart auto-playlists: a weekly On&nbsp;Repeat, a content-based Discover&nbsp;Mix, and
+                        Wrapped-style listening recaps. Everything is computed and stored on your machine, with no
+                        accounts and no network calls. Plays FLAC and MP3 natively, with macOS media-key and
+                        Control&nbsp;Center integration.</p>
+                    <div class="tags"><span class="tag">Electron</span><span class="tag">Node.js</span><span
+                            class="tag">JavaScript</span><span class="tag">macOS</span></div>
                 </div>
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/keystroke_counter" target="_blank" rel="noopener">Keystroke Counter</a></h4>
+                        <h4 class="eva-heading"><a href="https://github.com/chrisaperez/keystroke_counter"
+                                target="_blank" rel="noopener">Keystroke Counter</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
-                    <p class="eva-text">A lightweight macOS background daemon that tallies key presses per physical switch (by hardware key code) to measure how &ldquo;broken in&rdquo; mechanical-keyboard switches are. Event-driven and effectively idle at 0% CPU, it exposes a localhost HTTP API, a live browser dashboard, and a CLI, and installs as a launch agent that survives reboots. Everything stays local: it stores only an aggregate <code>{key: count}</code> map, never the text typed.</p>
-                    <div class="tags"><span class="tag">Python</span><span class="tag">pynput</span><span class="tag">macOS</span><span class="tag">CLI</span></div>
+                    <p class="eva-text">A lightweight macOS background daemon that tallies key presses per physical
+                        switch (by hardware key code) to measure how &ldquo;broken in&rdquo; mechanical-keyboard
+                        switches are. Event-driven and effectively idle at 0% CPU, it exposes a localhost HTTP API, a
+                        live browser dashboard, and a CLI, and installs as a launch agent that survives reboots.
+                        Everything stays local: it stores only an aggregate <code>{key: count}</code> map, never the
+                        text typed.</p>
+                    <div class="tags"><span class="tag">Python</span><span class="tag">pynput</span><span
+                            class="tag">macOS</span><span class="tag">CLI</span></div>
                 </div>
 
                 <div class="entry">
                     <div class="entry-head">
-                        <h4 class="eva-heading"><a href="https://market-maker-chris.fly.dev/" target="_blank" rel="noopener">Market Maker</a></h4>
+                        <h4 class="eva-heading"><a href="https://market-maker-chris.fly.dev/" target="_blank"
+                                rel="noopener">Market Maker</a></h4>
                         <span class="entry-date">2026</span>
                     </div>
-                    <p class="eva-text">A lightweight book-keeping app for tracking low-volume wagers between friends, acting as a shared ledger rather than a payment system, with no money changing hands. Built as a TypeScript monorepo, containerized with Docker, and deployed to Fly.io.</p>
-                    <div class="tags"><span class="tag">TypeScript</span><span class="tag">Docker</span><span class="tag">Fly.io</span></div>
+                    <p class="eva-text">A lightweight book-keeping app for tracking low-volume wagers between friends,
+                        acting as a shared ledger rather than a payment system, with no money changing hands. Built as a
+                        TypeScript monorepo, containerized with Docker, and deployed to Fly.io.</p>
+                    <div class="tags"><span class="tag">TypeScript</span><span class="tag">Docker</span><span
+                            class="tag">Fly.io</span></div>
                 </div>
 
                 <div class="entry">
                     <h4 class="eva-heading">A Note on Code</h4>
-                    <p class="eva-text">The linked projects above are personal work with public source on GitHub, so click any linked title to see the code. Some of my other projects are school projects that extend in-class assignments; to support the Stanford Honor Code, I keep those private. If you&rsquo;d like to see any of the unlinked work, please reach out directly: <a href="mailto:chrisp26@stanford.edu" class="contact-link">chrisp26@stanford.edu</a>.</p>
+                    <p class="eva-text">The linked projects above are personal work with public source on GitHub, so
+                        click any linked title to see the code. Some of my other projects are school projects that
+                        extend in-class assignments; to support the Stanford Honor Code, I keep those private. If
+                        you&rsquo;d like to see any of the unlinked work, please reach out directly: <a
+                            href="mailto:chrisp26@stanford.edu" class="contact-link">chrisp26@stanford.edu</a>.</p>
                 </div>
             </div>
 
@@ -704,15 +942,23 @@
 
                 <div class="content-block">
                     <h4 class="eva-heading">Cooking</h4>
-                    <p class="eva-text">One of my favorite hobbies is cooking for large groups. I specialize in large-scale meal planning and traditional recipe preparation for 50+ people. Some favorites: arroz rojo, birria, and carne asada.</p>
+                    <p class="eva-text">One of my favorite hobbies is cooking for large groups. I specialize in
+                        large-scale meal planning and traditional recipe preparation for 50+ people. Some favorites:
+                        arroz rojo, birria, and carne asada.</p>
                 </div>
                 <div class="content-block">
                     <h4 class="eva-heading">Keyboards</h4>
-                    <p class="eva-text">My favorite technical hobby is keyboard building. I own a variety of custom boards and collect switches, keycaps, and housings. I gravitate toward boards CNC&rsquo;d out of aluminum and brass, usually quite heavy, and I harvest vintage switches from old keyboards like Apple&rsquo;s AEK&nbsp;II.</p>
+                    <p class="eva-text">My favorite technical hobby is keyboard building. I own a variety of custom
+                        boards and collect switches, keycaps, and housings. I gravitate toward boards CNC&rsquo;d out of
+                        aluminum and brass, usually quite heavy, and I harvest vintage switches from old keyboards like
+                        Apple&rsquo;s AEK&nbsp;II.</p>
                 </div>
                 <div class="content-block">
                     <h4 class="eva-heading">Tea</h4>
-                    <p class="eva-text">I spent a semester abroad in Hong Kong, exploring much of Asia and developing a deep appreciation for its cultures. One of my favorite pastimes is drinking tea socially. I love pu&rsquo;er most, but also enjoy oolong and hojicha, my current favorite is a Yunnan-sourced pu&rsquo;er I picked up in Taiwan.</p>
+                    <p class="eva-text">I spent a semester abroad in Hong Kong, exploring much of Asia and developing a
+                        deep appreciation for its cultures. One of my favorite pastimes is drinking tea socially. I love
+                        pu&rsquo;er most, but also enjoy oolong and hojicha, my current favorite is a Yunnan-sourced
+                        pu&rsquo;er I picked up in Taiwan.</p>
                 </div>
             </div>
 
@@ -723,13 +969,17 @@
                 <div class="content-block">
                     <h4 class="eva-heading">Neon Genesis Evangelion</h4>
                     <p class="eva-text">
-                        The design language, typography, and color palette of this site are inspired by my favorite television series of all time: <em>Neon Genesis Evangelion</em>. The layout echoes the iconic MAGI supercomputer displays and NERV terminal readouts from the show.
+                        The design language, typography, and color palette of this site are inspired by my favorite
+                        television series of all time: <em>Neon Genesis Evangelion</em>. The layout echoes the iconic
+                        MAGI supercomputer displays and NERV terminal readouts from the show.
                     </p>
                 </div>
 
                 <div class="quote-card">
-                    <p class="eva-text quote-text">&ldquo;God&rsquo;s in his heaven&mdash;<br>all&rsquo;s right with the world.&rdquo;</p>
-                    <div class="sys-text" style="color: var(--text-dim);">&mdash; ROBERT BROWNING &middot; A RECURRING LINE IN THE SERIES</div>
+                    <p class="eva-text quote-text">&ldquo;God&rsquo;s in his heaven&mdash;<br>all&rsquo;s right with the
+                        world.&rdquo;</p>
+                    <div class="sys-text" style="color: var(--text-dim);">&mdash; ROBERT BROWNING &middot; A RECURRING
+                        LINE IN THE SERIES</div>
                 </div>
             </div>
 
@@ -778,4 +1028,5 @@
         });
     </script>
 </body>
+
 </html>
