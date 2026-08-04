@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Christopher Alexander Perez - Non-Technical Archive</title>
+    <!-- Include PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <!-- Include Marked for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             --bg-color: #fdfbf7;
@@ -258,48 +262,9 @@
 
         <section id="essays">
             <h2>Writings &amp; Essays</h2>
-
-            <article class="essay">
-                <h3>Misalignments of Incentive Salience as Afflictions of the Soul</h3>
-                <div class="meta">
-                    Christopher Alexander Perez &middot; NBIO 101 &middot; Dr. Hurlbut and Dr. Newsome &middot; June
-                    8th, 2026
-                </div>
-
-                <p>
-                    The story of neurological dysfunction embeds itself into high-profile lives like that of Ernest
-                    Hemingway, whose family history included multiple suicides, including his own in 1961<sup>1</sup>,
-                    into the deeply personal battles like those of my own family struggling with addiction and
-                    depression, and into entire communities where life expectancy has declined in recent
-                    decades<sup>2</sup>.
-                </p>
-                <p>
-                    The neurobiology of dopaminergic dysfunction in addiction and depression reveals a crisis of
-                    incentive salience,<sup>3</sup> a fundamental inability to want what sustains us, that manifests as
-                    spiritual illness in communities trapped by poverty, abuse, and trauma; typical responses through
-                    faith and community represent something beyond superstition: they are essential interventions where
-                    the brain, soul, and social structures collide.
-                </p>
-                <p>
-                    To see the connections between incentive salience and symptoms of spiritual sickness, we will begin
-                    by defining incentive salience more rigorously and exploring what happens with varying misalignments
-                    of incentive salience. Next, we will look at how chronic stress affects the human brain in ways that
-                    cause it to completely recalibrate its desires and needs in ways that are self-reinforcing. We will
-                    also look at how socioeconomic factors affect children's development by literally reshaping
-                    children's brains. Finally, we will examine how faith, communities, and practice of hope address
-                    this crisis at both neurological and social levels.
-                </p>
-
-                <div class="footnotes">
-                    <p><sup>1</sup> Jamison, K. R. (1993). <em>Touched with Fire: Manic-Depressive Illness and the
-                            Artistic Temperament.</em> Free Press.</p>
-                    <p><sup>2</sup> Case, A., &amp; Deaton, A. (2015). Rising morbidity and mortality in midlife among
-                        white non-Hispanic Americans in the 21st century. <em>Proceedings of the National Academy of
-                            Sciences</em>, 112(49), 15078–15083.</p>
-                    <p><sup>3</sup> Berridge, Robinson, &amp; Aldridge (2009), Dissecting components of reward:
-                        'liking', 'wanting', and learning, <em>Current Opinion in Pharmacology</em>, 9(1), 65–73.</p>
-                </div>
-            </article>
+            <div id="essays-container">
+                <p style="color: var(--text-muted); font-style: italic;">Loading essays...</p>
+            </div>
         </section>
 
         <section id="media">
@@ -307,36 +272,8 @@
             <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-family: sans-serif; font-size: 0.95rem;">
                 Books, albums, and media that have influenced me.</p>
 
-            <div class="log-grid">
-                <!-- Example item -->
-                <div class="log-item">
-                    <div class="log-header">
-                        <div>
-                            <div class="log-title">The Master and Margarita</div>
-                            <div class="log-meta">Mikhail Bulgakov &middot; Book</div>
-                        </div>
-                        <div class="log-rating">10 / 10</div>
-                    </div>
-                    <div class="log-review">
-                        An incredible exploration of Soviet society through magical realism. The parallel story of
-                        Pontius Pilate and Yeshua Ha-Nozri grounds the absurdity of the devil's visit to Moscow in
-                        profound philosophical stakes.
-                    </div>
-                </div>
-
-                <div class="log-item">
-                    <div class="log-header">
-                        <div>
-                            <div class="log-title">To Pimp a Butterfly</div>
-                            <div class="log-meta">Kendrick Lamar &middot; Album</div>
-                        </div>
-                        <div class="log-rating">10 / 10</div>
-                    </div>
-                    <div class="log-review">
-                        A masterclass in narrative structure and jazz-rap fusion. The thematic progression of
-                        self-hatred, institutional exploitation, and ultimate self-love is unmatched.
-                    </div>
-                </div>
+            <div class="log-grid" id="media-container">
+                <p style="color: var(--text-muted); font-style: italic;">Loading media log...</p>
             </div>
         </section>
 
@@ -354,28 +291,109 @@
                         <th>Review</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td data-label="Establishment"><strong>Taqueria El Farolito</strong><br><span
-                                style="font-size: 0.85rem; color: var(--text-muted);">San Francisco, CA</span></td>
-                        <td data-label="Cuisine">Mexican</td>
-                        <td data-label="Rating" class="rating">9.5 / 10</td>
-                        <td data-label="Review">The quintessential Mission burrito. The carnitas are unparalleled in
-                            texture and flavor. Open late and always reliable.</td>
-                    </tr>
-                    <tr>
-                        <td data-label="Establishment"><strong>State Bird Provisions</strong><br><span
-                                style="font-size: 0.85rem; color: var(--text-muted);">San Francisco, CA</span></td>
-                        <td data-label="Cuisine">New American</td>
-                        <td data-label="Rating" class="rating">8.8 / 10</td>
-                        <td data-label="Review">Fun dim-sum style cart service for American tapas. The fried quail is a
-                            must-try, though it can get overwhelming with the constant cart offerings.</td>
-                    </tr>
+                <tbody id="food-container">
+                    <tr><td colspan="4" style="color: var(--text-muted); font-style: italic; border:none;">Loading restaurants...</td></tr>
                 </tbody>
             </table>
         </section>
 
     </div>
+
+    <script>
+        // Set marked options
+        marked.setOptions({
+            breaks: true,
+            gfm: true
+        });
+
+        // 1. Load Food CSV
+        Papa.parse('food.csv', {
+            download: true,
+            header: true,
+            complete: function (results) {
+                const tbody = document.getElementById('food-container');
+                tbody.innerHTML = ''; // clear loading
+                results.data.forEach(row => {
+                    if (!row.Establishment) return; // skip empty rows
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td data-label="Establishment"><strong>${row.Establishment}</strong><br><span style="font-size: 0.85rem; color: var(--text-muted);">${row.Location}</span></td>
+                        <td data-label="Cuisine">${row.Cuisine}</td>
+                        <td data-label="Rating" class="rating">${row.Rating} / 10</td>
+                        <td data-label="Review">${row.Review}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        });
+
+        // 2. Load Media CSV
+        Papa.parse('media.csv', {
+            download: true,
+            header: true,
+            complete: function (results) {
+                const container = document.getElementById('media-container');
+                container.innerHTML = '';
+                results.data.forEach(row => {
+                    if (!row.Title) return;
+                    const div = document.createElement('div');
+                    div.className = 'log-item';
+                    div.innerHTML = `
+                        <div class="log-header">
+                            <div>
+                                <div class="log-title">${row.Title}</div>
+                                <div class="log-meta">${row.AuthorArtist} &middot; ${row.Type}</div>
+                            </div>
+                            <div class="log-rating">${row.Rating} / 10</div>
+                        </div>
+                        <div class="log-review">${row.Review}</div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        });
+
+        // 3. Load Essays Manifest and Markdown
+        Papa.parse('essays/manifest.csv', {
+            download: true,
+            header: true,
+            complete: function (results) {
+                const container = document.getElementById('essays-container');
+                container.innerHTML = '';
+                results.data.forEach(row => {
+                    if (!row.Filename) return;
+                    
+                    const article = document.createElement('article');
+                    article.className = 'essay';
+                    
+                    // Add header
+                    const headerHTML = `
+                        <h3>${row.Title}</h3>
+                        <div class="meta">
+                            ${row.Author} &middot; ${row.Class} &middot; ${row.Professor} &middot; ${row.Date}
+                        </div>
+                        <div class="essay-content">Loading content...</div>
+                    `;
+                    article.innerHTML = headerHTML;
+                    container.appendChild(article);
+
+                    // Fetch the markdown content
+                    fetch('essays/' + row.Filename)
+                        .then(response => response.text())
+                        .then(text => {
+                            // Parse markdown to HTML
+                            let htmlContent = marked.parse(text);
+                            // Super simple footnote replacement for marked.js if no plugin used:
+                            // Replace [^1] with <sup>1</sup>
+                            htmlContent = htmlContent.replace(/\[\^(\d+)\]:/g, '<p class="footnote"><sup>$1</sup>');
+                            htmlContent = htmlContent.replace(/\[\^(\d+)\]/g, '<sup>$1</sup>');
+                            
+                            article.querySelector('.essay-content').innerHTML = htmlContent;
+                        });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
