@@ -249,11 +249,9 @@
             background-size: 20px 20px;
             background-color: rgba(10, 10, 10, 0.85);
             box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
-            clip-path: polygon(
-                0 15px, 15px 0, 
-                100% 0, 100% calc(100% - 15px), 
-                calc(100% - 15px) 100%, 0 100%
-            );
+            clip-path: polygon(0 15px, 15px 0,
+                    100% 0, 100% calc(100% - 15px),
+                    calc(100% - 15px) 100%, 0 100%);
         }
 
         /* SCROLLED STATE */
@@ -707,8 +705,9 @@
             <button class="tab-btn" role="tab" aria-selected="false" aria-controls="inspiration"
                 data-tab="inspiration"><span class="tab-idx">06</span><span
                     class="tab-label">Inspiration</span></button>
-            <a href="creative.html" class="tab-btn" style="text-decoration: none; border-left: 4px solid transparent;"><span class="tab-idx">07</span><span
-                    class="tab-label">Creative Archive</span></a>
+            <a href="non_technical.html" class="tab-btn"
+                style="text-decoration: none; border-left: 4px solid transparent;"><span class="tab-idx">07</span><span
+                    class="tab-label">Non-Technical Archive</span></a>
         </div>
 
         <div class="content-area">
@@ -803,7 +802,8 @@
                     <p class="eva-text">An end-to-end &ldquo;lecture-to-notes&rdquo; pipeline that turns noisy ASR
                         transcripts into clean, readable study notes. Built regex-based heuristics to parse and clean
                         <code>.vtt</code> / <code>.txt</code> transcripts, then applied LLMs to summarize imperfect,
-                        real-world data.</p>
+                        real-world data.
+                    </p>
                     <div class="tags"><span class="tag">Python</span><span class="tag">NLP</span><span
                             class="tag">LLMs</span></div>
                 </div>
