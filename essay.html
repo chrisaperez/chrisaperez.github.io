@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- docx-preview dependencies -->
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/docx-preview/dist/docx-preview.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #fdfbf7;
+            --text-main: #1f1f1f;
+            --text-muted: #555555;
+            --accent: #d32f2f;
+            --border-color: #e5e0d8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: "Georgia", "Times New Roman", serif;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--accent);
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--text-main);
+            border-bottom: 1px solid var(--text-main);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        nav {
+            margin-bottom: 4rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        h1 {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .meta {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #document-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            min-height: 50vh;
+            overflow: hidden; /* Contains docx wrapper smoothly */
+        }
+
+        /* Customize docx-preview wrapper to match site theme perfectly */
+        .docx-wrapper {
+            background: transparent !important;
+            padding: 0 !important;
+        }
+        
+        .docx-wrapper > section.docx {
+            box-shadow: none !important;
+            margin: 0 !important;
+            padding: 4rem 3rem !important; /* Elegant spacing for the document */
+            background: transparent !important;
+        }
+
+        /* Fallback for markdown content padding */
+        #document-container > :not(.docx-wrapper) {
+            padding: 4rem 3rem;
+        }
+
+        #loading {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 4rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="nontechnical.html">&larr; Back to Archive</a>
+        </nav>
+        
+        <div id="header-container">
+            <!-- Title and meta injected here -->
+        </div>
+
+        <div id="document-container">
+            <div id="loading">Loading essay...</div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const filename = urlParams.get('file');
+
+        if (!filename) {
+            document.getElementById('loading').innerText = "No file specified.";
+        } else {
+            // First load the manifest to get the title and metadata
+            Papa.parse('essays/manifest.csv', {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    const row = results.data.find(r => r.Filename === filename);
+                    if (row) {
+                        document.title = row.Title + " - Christopher Alexander Perez";
+                        document.getElementById('header-container').innerHTML = `
+                            <h1>${row.Title}</h1>
+                            <div class="meta">
+                                ${row.Author} &middot; ${row.Class} &middot; ${row.Professor} &middot; ${row.Date}
+                            </div>
+                        `;
+                    }
+                    
+                    const container = document.getElementById('document-container');
+                    
+                    if (filename.toLowerCase().endsWith('.docx')) {
+                        fetch('essays/' + filename)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                container.innerHTML = '';
+                                // Using docx-preview instead of mammoth to retain fonts, indentation, and structure
+                                docx.renderAsync(blob, container, null, {
+                                    inWrapper: true,
+                                    ignoreWidth: false,
+                                    ignoreHeight: false,
+                                    ignoreFonts: false,
+                                    breakPages: true,
+                                    ignoreLastRenderedPageBreak: true,
+                                    experimental: true,
+                                    trimXmlDeclaration: true,
+                                    useBase64URL: true,
+                                    renderChanges: false,
+                                    renderHeaders: true,
+                                    renderFooters: true,
+                                    renderFootnotes: true,
+                                    renderEndnotes: true,
+                                }).then(() => {
+                                    console.log("docx rendered successfully with original formatting.");
+                                }).catch(err => {
+                                    container.innerHTML = '<div style="color: var(--accent); padding: 4rem 3rem;">Error loading document.</div>';
+                                    console.error(err);
+                                });
+                            });
+                    } else if (filename.toLowerCase().endsWith('.md')) {
+                        fetch('essays/' + filename)
+                            .then(response => response.text())
+                            .then(text => {
+                                marked.setOptions({ breaks: true, gfm: true });
+                                let htmlContent = marked.parse(text);
+                                htmlContent = htmlContent.replace(/\\[\\^(\\d+)\\]:/g, '<p class="footnote"><sup>$1</sup>');
+                                htmlContent = htmlContent.replace(/\\[\\^(\\d+)\\]/g, '<sup>$1</sup>');
+                                container.innerHTML = htmlContent;
+                            });
+                    } else {
+                        document.getElementById('loading').innerText = "Unsupported file format.";
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

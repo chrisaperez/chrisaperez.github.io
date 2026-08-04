@@ -9,8 +9,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <!-- Include Marked for Markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Include Mammoth for DOCX parsing -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <style>
         :root {
             --bg-color: #fdfbf7;
@@ -250,44 +248,12 @@
             }
         }
 
-        /* Modal Styles */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-        .modal-content {
-            background: var(--bg-color);
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem;
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            line-height: 1;
-            border: none;
-            background: none;
-        }
-        .modal-close:hover {
-            color: var(--text-main);
-        }
         .essay-title-link {
-            cursor: pointer;
             color: var(--accent);
+            text-decoration: none;
             border-bottom: 1px dotted var(--accent);
             transition: all 0.2s ease;
+            display: inline-block;
         }
         .essay-title-link:hover {
             color: var(--text-main);
@@ -345,14 +311,6 @@
 
     </div>
 
-    <!-- Modal for Essay content -->
-    <div id="essay-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close" id="modal-close">&times;</button>
-            <div id="modal-body" class="essay"></div>
-        </div>
-    </div>
-
     <script>
         // Set marked options
         marked.setOptions({
@@ -407,7 +365,7 @@
             }
         });
 
-        // 3. Load Essays Manifest and Parse Markdown/DOCX
+        // 3. Load Essays Manifest
         Papa.parse('essays/manifest.csv', {
             download: true,
             header: true,
@@ -422,63 +380,13 @@
                     
                     // Add header
                     const headerHTML = `
-                        <h3 class="essay-title-link" data-filename="${row.Filename}" style="display: inline-block;">${row.Title}</h3>
+                        <a href="essay.html?file=${encodeURIComponent(row.Filename)}" class="essay-title-link"><h3>${row.Title}</h3></a>
                         <div class="meta">
                             ${row.Author} &middot; ${row.Class} &middot; ${row.Professor} &middot; ${row.Date}
                         </div>
                     `;
                     article.innerHTML = headerHTML;
                     container.appendChild(article);
-                });
-
-                // Add event listeners to titles
-                document.querySelectorAll('.essay-title-link').forEach(link => {
-                    link.addEventListener('click', function() {
-                        const filename = this.getAttribute('data-filename');
-                        const modal = document.getElementById('essay-modal');
-                        const modalBody = document.getElementById('modal-body');
-                        
-                        modalBody.innerHTML = '<p style="color: var(--text-muted); font-style: italic;">Loading content...</p>';
-                        modal.style.display = 'block';
-                        
-                        if (filename.toLowerCase().endsWith('.docx')) {
-                            fetch('essays/' + filename)
-                                .then(response => response.arrayBuffer())
-                                .then(arrayBuffer => {
-                                    mammoth.convertToHtml({arrayBuffer: arrayBuffer})
-                                        .then(result => {
-                                            modalBody.innerHTML = result.value;
-                                            if (result.messages.length > 0) {
-                                                console.log("Mammoth messages:", result.messages);
-                                            }
-                                        })
-                                        .catch(err => {
-                                            modalBody.innerHTML = '<p style="color: var(--accent);">Error loading document.</p>';
-                                            console.error(err);
-                                        });
-                                });
-                        } else {
-                            fetch('essays/' + filename)
-                                .then(response => response.text())
-                                .then(text => {
-                                    let htmlContent = marked.parse(text);
-                                    htmlContent = htmlContent.replace(/\[\^(\d+)\]:/g, '<p class="footnote"><sup>$1</sup>');
-                                    htmlContent = htmlContent.replace(/\[\^(\d+)\]/g, '<sup>$1</sup>');
-                                    modalBody.innerHTML = htmlContent;
-                                });
-                        }
-                    });
-                });
-
-                // Close modal
-                document.getElementById('modal-close').addEventListener('click', () => {
-                    document.getElementById('essay-modal').style.display = 'none';
-                });
-                // Close modal on outside click
-                document.getElementById('essay-modal').addEventListener('click', (e) => {
-                    if (e.target.id === 'essay-modal') {
-                        e.target.style.display = 'none';
-                    }
                 });
             }
         });
