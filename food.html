@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food - Christopher Alexander Perez</title>
+    <link rel="stylesheet" href="archive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="archive.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="nontechnical.html">&larr; Back to Archive</a>
+        </nav>
+
+        <h1>Food</h1>
+        <p class="lede">Restaurants worth the trip, what to order there, and honest ratings.</p>
+
+        <section>
+            <h2>Places <span class="count" id="gallery-count"></span></h2>
+            <div class="food-list" id="gallery">
+                <p class="loading">Loading restaurants...</p>
+            </div>
+        </section>
+
+        <section id="tail-section">
+            <h2>Also worth a visit <span class="count" id="tail-count"></span></h2>
+            <p class="section-note">Places I have not photographed or written up properly yet.</p>
+            <ul class="tail-list" id="tail-list"></ul>
+        </section>
+    </div>
+
+    <script>
+        const galleryEl = document.getElementById('gallery');
+        const galleryCount = document.getElementById('gallery-count');
+        const tailSection = document.getElementById('tail-section');
+        const tailEl = document.getElementById('tail-list');
+        const tailCount = document.getElementById('tail-count');
+
+        // Same partition rule as the music and movie galleries: a place needs a
+        // photo and a rating to earn a card, otherwise it drops to the list below.
+        loadCsv('food.csv', 'Slug', rows => {
+            const photographed = r => imageList(r.Images).length > 0 && has(r.Rating);
+            const shown = rows.filter(photographed);
+            const tail = rows.filter(r => !photographed(r));
+
+            shown.sort((a, b) =>
+                parseFloat(b.Rating) - parseFloat(a.Rating)
+                || a.Establishment.localeCompare(b.Establishment));
+
+            const href = r => `detail.html?type=food&id=${encodeURIComponent(r.Slug)}`;
+
+            galleryEl.innerHTML = shown.length ? shown.map(r => `
+                <a class="food-card" href="${href(r)}">
+                    <img class="art" src="images/food/${encodeURIComponent(imageList(r.Images)[0])}"
+                         alt="${esc(r.Establishment)}" loading="lazy">
+                    <div>
+                        <div class="food-name">${esc(r.Establishment)}</div>
+                        <div class="food-meta">
+                            ${[r.Location, r.Cuisine].filter(has).map(esc).join(' &middot; ')}
+                            <span class="log-rating">${ratingText(r.Rating)}</span>
+                        </div>
+                        <div class="food-review">${esc(r.Review)}</div>
+                    </div>
+                </a>
+            `).join('') : '<p class="empty">No restaurants with photos yet.</p>';
+
+            galleryCount.textContent = shown.length ? `${shown.length}` : '';
+
+            if (!tail.length) {
+                tailSection.hidden = true;
+                return;
+            }
+            tailCount.textContent = `${tail.length}`;
+            tailEl.innerHTML = tail.map(r => {
+                const label = `${esc(r.Establishment)} <span class="by">${esc(r.Location)}</span>`;
+                const body = has(r.Review) ? `<a href="${href(r)}">${label}</a>` : label;
+                const rating = has(r.Rating)
+                    ? ` <span class="tail-rating">${ratingText(r.Rating)}</span>` : '';
+                return `<li>${body}${rating}</li>`;
+            }).join('');
+        }, galleryEl);
+    </script>
+</body>
+
+</html>

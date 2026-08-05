@@ -1,3 +1,3 @@
-Establishment,Location,Cuisine,Rating,Review
-El Molino del Sureste,"St. Louis, MO",Yucatan,9.5,yum
-Beecher's Handmade Cheese,"Seattle, WA",New American,8.8,my
+Slug,Establishment,Location,Cuisine,Rating,Review,Dishes,Images
+el-molino-del-sureste,El Molino del Sureste,"St. Louis, MO",Yucatan,9.5,yum,,
+beechers-handmade-cheese,Beecher's Handmade Cheese,"Seattle, WA",New American,8.8,my,,

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies - Christopher Alexander Perez</title>
+    <link rel="stylesheet" href="archive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="archive.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="nontechnical.html">&larr; Back to Archive</a>
+        </nav>
+
+        <h1>Movies</h1>
+        <p class="lede">I do not watch films especially often, which means the ones that land tend to stay with me
+            for years.</p>
+
+        <section>
+            <h2>Films <span class="count" id="gallery-count"></span></h2>
+            <div class="gallery" id="gallery">
+                <p class="loading">Loading films...</p>
+            </div>
+        </section>
+
+        <section id="tail-section">
+            <h2>Also seen <span class="count" id="tail-count"></span></h2>
+            <p class="section-note">Films in the log that I have not written up or found a poster for yet.</p>
+            <ul class="tail-list" id="tail-list"></ul>
+        </section>
+    </div>
+
+    <script>
+        renderGallery({
+            csv: 'movies.csv',
+            type: 'movies',
+            dir: 'images/movies/',
+            by: 'Director',
+            art: 'poster',
+            emptyText: 'No films with poster art yet.'
+        });
+    </script>
+</body>
+
+</html>

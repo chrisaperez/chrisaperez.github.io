@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music - Christopher Alexander Perez</title>
+    <link rel="stylesheet" href="archive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="archive.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="nontechnical.html">&larr; Back to Archive</a>
+        </nav>
+
+        <h1>Music</h1>
+        <p class="lede">I listen to albums all the way through. Cover art is half the point, so the ones I have
+            written up properly get shown here in full.</p>
+
+        <section>
+            <h2>Albums <span class="count" id="gallery-count"></span></h2>
+            <div class="gallery" id="gallery">
+                <p class="loading">Loading albums...</p>
+            </div>
+        </section>
+
+        <section id="tail-section">
+            <h2>Also listened to <span class="count" id="tail-count"></span></h2>
+            <p class="section-note">Records in the log that I have not written up or found artwork for yet.</p>
+            <ul class="tail-list" id="tail-list"></ul>
+        </section>
+    </div>
+
+    <script>
+        renderGallery({
+            csv: 'music.csv',
+            type: 'music',
+            dir: 'images/albums/',
+            by: 'Artist',
+            emptyText: 'No albums with cover art yet.'
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,517 @@
+/* Shared stylesheet for the light-themed "Creative Archive" pages:
+   nontechnical.html (hub), essays.html, music.html, movies.html, food.html,
+   detail.html, essay.html.
+
+   index.html is deliberately NOT included -- it has its own NERV terminal theme
+   and no external dependencies. */
+
+:root {
+    --bg-color: #fdfbf7;
+    --text-main: #1f1f1f;
+    --text-muted: #555555;
+    --accent: #d32f2f;
+    /* A subtle nod to the NERV red, but used sparingly */
+    --border-color: #e5e0d8;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --serif: "Georgia", "Times New Roman", serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--serif);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--text-main);
+    border-bottom: 1px solid var(--text-main);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+nav {
+    margin-bottom: 4rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+nav a {
+    color: var(--text-muted);
+    border-bottom: none;
+    margin-right: 2rem;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-top: 4rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+}
+
+.meta {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.lede {
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+}
+
+.section-note {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+}
+
+.loading,
+.empty {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Placeholders sit inside grid containers, so span the full row rather than
+   squeezing into one narrow column. */
+.gallery > .loading,
+.gallery > .empty,
+.food-list > .loading,
+.food-list > .empty {
+    grid-column: 1 / -1;
+}
+
+/* Small uppercase count that trails a section heading */
+.count {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+/* ---------- HUB ---------- */
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.hub-card {
+    display: block;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    color: inherit;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hub-card:hover {
+    color: inherit;
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.hub-card h2 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem;
+    border-bottom: none;
+    padding-bottom: 0;
+    color: var(--accent);
+}
+
+.hub-card p {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* ---------- ESSAY LIST ---------- */
+
+.essay {
+    margin-bottom: 4rem;
+}
+
+.essay p {
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.essay-title-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.essay-title-link:hover {
+    color: var(--text-main);
+    border-bottom: 1px solid var(--text-main);
+}
+
+.footnotes {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.footnotes p {
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- ARTWORK GALLERY (music + movies) ---------- */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.75rem 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.gallery-item {
+    display: block;
+    color: inherit;
+    border-bottom: none;
+    font-family: var(--sans);
+}
+
+.gallery-item:hover {
+    color: inherit;
+    border-bottom: none;
+}
+
+.art {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: var(--border-color);
+    border-radius: 3px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease;
+}
+
+/* Album covers are square by default; posters are portrait and photos landscape */
+.art.poster {
+    aspect-ratio: 2 / 3;
+}
+
+.art.wide {
+    aspect-ratio: 4 / 3;
+}
+
+.gallery-item:hover .art {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.gallery-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-top: 0.75rem;
+}
+
+.gallery-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.gallery-rating {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* ---------- LONG-TAIL LIST (rows without artwork) ---------- */
+
+.tail-list {
+    list-style: none;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    columns: 2;
+    column-gap: 2.5rem;
+}
+
+.tail-list li {
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+    break-inside: avoid;
+}
+
+.tail-list .by {
+    color: var(--text-muted);
+}
+
+.tail-list .tail-rating {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* ---------- FOOD CARDS ---------- */
+
+.food-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.food-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    color: inherit;
+    font-family: var(--sans);
+}
+
+.food-card:hover {
+    color: inherit;
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.food-card .art {
+    aspect-ratio: 4 / 3;
+}
+
+.food-card:hover .art {
+    transform: none;
+}
+
+.food-name {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.food-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.food-review {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+/* ---------- LOG CARDS (generic list card) ---------- */
+
+.log-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.log-item {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    font-family: var(--sans);
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.log-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.log-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.log-rating {
+    font-weight: bold;
+    color: var(--accent);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.log-review {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+/* ---------- TABLES ---------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+}
+
+td.rating {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+    .container {
+        padding: 2rem 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .hub-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    .tail-list {
+        columns: 1;
+    }
+
+    .food-card {
+        grid-template-columns: 1fr;
+    }
+
+    /* Collapse tables into stacked cards, labelled by each cell's data-label */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    th {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 1rem;
+        background-color: #fff;
+    }
+
+    td {
+        border: none;
+        padding: 0.25rem 0;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        display: block;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        transform: none !important;
+    }
+}

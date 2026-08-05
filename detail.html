@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christopher Alexander Perez</title>
+    <link rel="stylesheet" href="archive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="archive.js"></script>
+    <style>
+        .container {
+            max-width: 900px;
+        }
+
+        .detail-head {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-bottom: 3rem;
+        }
+
+        .detail-head .art {
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .detail-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-by {
+            font-family: var(--sans);
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-rating {
+            font-family: var(--sans);
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-highlight {
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .detail-highlight .label {
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .detail-review {
+            font-size: 1.15rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .detail-review p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Extra photos beyond the first, for restaurants */
+        .photo-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .photo-strip .art {
+            aspect-ratio: 4 / 3;
+        }
+
+        @media (max-width: 700px) {
+            .detail-head {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .detail-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="nontechnical.html" id="back-link">&larr; Back to Archive</a>
+        </nav>
+
+        <div id="content">
+            <p class="loading">Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        // One page serves all three collections. Each entry maps the generic
+        // layout onto that CSV's own column names.
+        const TYPES = {
+            music: {
+                csv: 'music.csv', dir: 'images/albums/', back: 'music.html', backLabel: 'Music',
+                title: 'Title', by: 'Artist', images: 'Image',
+                highlight: 'FavoriteTrack', highlightLabel: 'Favorite track'
+            },
+            movies: {
+                csv: 'movies.csv', dir: 'images/movies/', back: 'movies.html', backLabel: 'Movies',
+                title: 'Title', by: 'Director', images: 'Image', art: 'poster',
+                highlight: 'FavoriteScene', highlightLabel: 'Favorite scene'
+            },
+            food: {
+                csv: 'food.csv', dir: 'images/food/', back: 'food.html', backLabel: 'Food',
+                title: 'Establishment', by: 'Cuisine', images: 'Images', art: 'wide',
+                highlight: 'Dishes', highlightLabel: 'What to order'
+            }
+        };
+
+        const content = document.getElementById('content');
+        const backLink = document.getElementById('back-link');
+        const params = new URLSearchParams(window.location.search);
+        const cfg = TYPES[params.get('type')];
+        const id = params.get('id');
+
+        function notFound(message) {
+            content.innerHTML = `
+                <h1>Not found</h1>
+                <p class="lede">${esc(message)}</p>
+                <p><a href="nontechnical.html">Back to the Creative Archive</a></p>
+            `;
+        }
+
+        if (!cfg || !id) {
+            notFound('That link is missing or points at a collection that does not exist.');
+        } else {
+            backLink.href = cfg.back;
+            backLink.innerHTML = `&larr; Back to ${esc(cfg.backLabel)}`;
+
+            loadCsv(cfg.csv, 'Slug', rows => {
+                const row = rows.find(r => r.Slug === id);
+                if (!row) {
+                    notFound(`Nothing in ${cfg.backLabel.toLowerCase()} matches "${id}".`);
+                    return;
+                }
+
+                const name = row[cfg.title] || '';
+                document.title = `${name} - Christopher Alexander Perez`;
+
+                // Music and movies carry one filename; food carries a
+                // semicolon-separated list. Both go through the same splitter.
+                const photos = imageList(row[cfg.images]);
+                const artClass = `art${cfg.art ? ' ' + cfg.art : ''}`;
+                const lead = photos.length
+                    ? `<img class="${artClass}" src="${cfg.dir}${encodeURIComponent(photos[0])}"
+                            alt="${esc(name)}">`
+                    : '';
+
+                const subtitle = [row[cfg.by], row.Location, row.Year]
+                    .filter(v => (v ?? '').toString().trim()).map(esc).join(' &middot; ');
+
+                const rating = ratingText(row.Rating);
+                const highlight = (row[cfg.highlight] ?? '').toString().trim();
+                const review = (row.Review ?? '').toString().trim();
+
+                content.innerHTML = `
+                    <div class="detail-head" ${lead ? '' : 'style="grid-template-columns: 1fr"'}>
+                        ${lead}
+                        <div>
+                            <h1 class="detail-title">${esc(name)}</h1>
+                            ${subtitle ? `<div class="detail-by">${subtitle}</div>` : ''}
+                            ${rating ? `<div class="detail-rating">${rating}</div>` : ''}
+                            ${highlight ? `
+                                <div class="detail-highlight">
+                                    <span class="label">${esc(cfg.highlightLabel)}</span>
+                                    ${esc(highlight)}
+                                </div>` : ''}
+                        </div>
+                    </div>
+                    ${review ? `<div class="detail-review"><p>${esc(review)}</p></div>` : ''}
+                    ${photos.length > 1 ? `
+                        <div class="photo-strip">
+                            ${photos.slice(1).map((p, i) => `
+                                <img class="art" src="${cfg.dir}${encodeURIComponent(p)}"
+                                     alt="${esc(name)} photo ${i + 2}" loading="lazy">`).join('')}
+                        </div>` : ''}
+                `;
+            }, content);
+        }
+    </script>
+</body>
+
+</html>

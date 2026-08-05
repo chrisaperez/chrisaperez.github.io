@@ -4,73 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essay</title>
+    <link rel="stylesheet" href="archive.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- Scripts -->
+    <script src="archive.js"></script>
     <style>
-        :root {
-            --bg-color: #fdfbf7;
-            --text-main: #1f1f1f;
-            --text-muted: #555555;
-            --accent: #d32f2f;
-            --border-color: #e5e0d8;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: "Georgia", "Times New Roman", serif;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
-
-        a {
-            color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px dotted var(--accent);
-            transition: all 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--text-main);
-            border-bottom: 1px solid var(--text-main);
-        }
-
         .container {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        nav {
-            margin-bottom: 4rem;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        h1 {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
         }
 
         .meta {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 0.85rem;
-            color: var(--text-muted);
             margin-bottom: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             padding-bottom: 2rem;
             border-bottom: 1px solid var(--border-color);
         }
@@ -109,7 +53,7 @@
 <body>
     <div class="container">
         <nav>
-            <a href="nontechnical.html">&larr; Back to Archive</a>
+            <a href="essays.html">&larr; Back to Essays</a>
         </nav>
         
         <div id="header-container">
@@ -125,44 +69,47 @@
         const urlParams = new URLSearchParams(window.location.search);
         const filename = urlParams.get('file');
 
+        const container = document.getElementById('document-container');
+
         if (!filename) {
             document.getElementById('loading').innerText = "No file specified.";
         } else {
             // First load the manifest to get the title and metadata
-            Papa.parse('essays/manifest.csv', {
-                download: true,
-                header: true,
-                complete: function (results) {
-                    const row = results.data.find(r => r.Filename === filename);
-                    if (row) {
-                        document.title = row.Title + " - Christopher Alexander Perez";
-                        document.getElementById('header-container').innerHTML = `
-                            <h1>${row.Title}</h1>
-                            <div class="meta">
-                                ${row.Author} &middot; ${row.Class} &middot; ${row.Professor} &middot; ${row.Date}
-                            </div>
-                        `;
-                    }
-                    
-                    const container = document.getElementById('document-container');
-                    
-                    if (filename.toLowerCase().endsWith('.pdf')) {
-                        container.innerHTML = `<iframe src="essays/${filename}" class="pdf-embed" title="Essay PDF Document"></iframe>`;
-                    } else if (filename.toLowerCase().endsWith('.md')) {
-                        fetch('essays/' + filename)
-                            .then(response => response.text())
-                            .then(text => {
-                                marked.setOptions({ breaks: true, gfm: true });
-                                let htmlContent = marked.parse(text);
-                                htmlContent = htmlContent.replace(/\\[\\^(\\d+)\\]:/g, '<p class="footnote"><sup>$1</sup>');
-                                htmlContent = htmlContent.replace(/\\[\\^(\\d+)\\]/g, '<sup>$1</sup>');
-                                container.innerHTML = htmlContent;
-                            });
-                    } else {
-                        document.getElementById('loading').innerText = "Unsupported file format.";
-                    }
+            loadCsv('essays/manifest.csv', 'Filename', function (rows) {
+                const row = rows.find(r => r.Filename === filename);
+                if (!row) {
+                    // Don't render an iframe for a file that isn't in the manifest.
+                    document.getElementById('header-container').innerHTML = '<h1>Not found</h1>';
+                    container.innerHTML =
+                        '<p class="empty">No essay matches that link. ' +
+                        '<a href="essays.html">Back to the essay list</a>.</p>';
+                    return;
                 }
-            });
+
+                document.title = row.Title + " - Christopher Alexander Perez";
+                document.getElementById('header-container').innerHTML = `
+                    <h1>${esc(row.Title)}</h1>
+                    <div class="meta">
+                        ${esc(row.Author)} &middot; ${esc(row.Class)} &middot; ${esc(row.Professor)} &middot; ${esc(row.Date)}
+                    </div>
+                `;
+
+                if (filename.toLowerCase().endsWith('.pdf')) {
+                    container.innerHTML = `<iframe src="essays/${encodeURIComponent(filename)}" class="pdf-embed" title="Essay PDF Document"></iframe>`;
+                } else if (filename.toLowerCase().endsWith('.md')) {
+                    fetch('essays/' + encodeURIComponent(filename))
+                        .then(response => response.text())
+                        .then(text => {
+                            marked.setOptions({ breaks: true, gfm: true });
+                            let htmlContent = marked.parse(text);
+                            htmlContent = htmlContent.replace(/\[\^(\d+)\]:/g, '<p class="footnote"><sup>$1</sup>');
+                            htmlContent = htmlContent.replace(/\[\^(\d+)\]/g, '<sup>$1</sup>');
+                            container.innerHTML = htmlContent;
+                        });
+                } else {
+                    document.getElementById('loading').innerText = "Unsupported file format.";
+                }
+            }, container);
         }
     </script>
 </body>

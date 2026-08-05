@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writings &amp; Essays - Christopher Alexander Perez</title>
+    <link rel="stylesheet" href="archive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="archive.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="nontechnical.html">&larr; Back to Archive</a>
+        </nav>
+
+        <h1>Writings &amp; Essays</h1>
+        <p class="lede">Longer pieces, mostly written for class, on whatever I could not stop thinking about that
+            semester.</p>
+
+        <div id="essays-container">
+            <p class="loading">Loading essays...</p>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('essays-container');
+
+        loadCsv('essays/manifest.csv', 'Filename', rows => {
+            if (!rows.length) {
+                container.innerHTML = '<p class="empty">No essays yet.</p>';
+                return;
+            }
+            container.innerHTML = rows.map(row => `
+                <article class="essay">
+                    <a href="essay.html?file=${encodeURIComponent(row.Filename)}" class="essay-title-link"><h3>${esc(row.Title)}</h3></a>
+                    <div class="meta">
+                        ${esc(row.Author)} &middot; ${esc(row.Class)} &middot; ${esc(row.Professor)} &middot; ${esc(row.Date)}
+                    </div>
+                </article>
+            `).join('');
+        }, container);
+    </script>
+</body>
+
+</html>
