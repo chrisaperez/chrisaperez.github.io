@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writings &amp; Essays - Christopher Alexander Perez</title>
-    <link rel="stylesheet" href="archive.css">
+    <link rel="stylesheet" href="../css/archive.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <script src="archive.js"></script>
+    <script src="../js/archive.js"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
     <script>
         const container = document.getElementById('essays-container');
 
-        loadCsv('essays/manifest.csv', 'Filename', rows => {
+        loadCsv('../essays/manifest.csv', 'Filename', rows => {
             if (!rows.length) {
                 container.innerHTML = '<p class="empty">No essays yet.</p>';
                 return;

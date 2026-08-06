@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Essay</title>
-    <link rel="stylesheet" href="archive.css">
+    <link rel="stylesheet" href="../css/archive.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="archive.js"></script>
+    <script src="../js/archive.js"></script>
     <style>
         .container {
             max-width: 900px;
@@ -75,7 +75,7 @@
             document.getElementById('loading').innerText = "No file specified.";
         } else {
             // First load the manifest to get the title and metadata
-            loadCsv('essays/manifest.csv', 'Filename', function (rows) {
+            loadCsv('../essays/manifest.csv', 'Filename', function (rows) {
                 const row = rows.find(r => r.Filename === filename);
                 if (!row) {
                     // Don't render an iframe for a file that isn't in the manifest.
@@ -95,9 +95,9 @@
                 `;
 
                 if (filename.toLowerCase().endsWith('.pdf')) {
-                    container.innerHTML = `<iframe src="essays/${encodeURIComponent(filename)}" class="pdf-embed" title="Essay PDF Document"></iframe>`;
+                    container.innerHTML = `<iframe src="../essays/${encodeURIComponent(filename)}" class="pdf-embed" title="Essay PDF Document"></iframe>`;
                 } else if (filename.toLowerCase().endsWith('.md')) {
-                    fetch('essays/' + encodeURIComponent(filename))
+                    fetch('../essays/' + encodeURIComponent(filename))
                         .then(response => response.text())
                         .then(text => {
                             marked.setOptions({ breaks: true, gfm: true });

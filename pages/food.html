@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food - Christopher Alexander Perez</title>
-    <link rel="stylesheet" href="archive.css">
+    <link rel="stylesheet" href="../css/archive.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <script src="archive.js"></script>
+    <script src="../js/archive.js"></script>
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
         // Same partition rule as the music and movie galleries: a place needs a
         // photo and a rating to earn a card, otherwise it drops to the list below.
-        loadCsv('food.csv', 'Slug', rows => {
+        loadCsv('../data/food.csv', 'Slug', rows => {
             const photographed = r => imageList(r.Images).length > 0 && has(r.Rating);
             const shown = rows.filter(photographed);
             const tail = rows.filter(r => !photographed(r));
@@ -55,7 +55,7 @@
 
             galleryEl.innerHTML = shown.length ? shown.map(r => `
                 <a class="food-card" href="${href(r)}">
-                    <img class="art" src="images/food/${encodeURIComponent(imageList(r.Images)[0])}"
+                    <img class="art" src="../images/food/${encodeURIComponent(imageList(r.Images)[0])}"
                          alt="${esc(r.Establishment)}" loading="lazy">
                     <div>
                         <div class="food-name">${esc(r.Establishment)}</div>
